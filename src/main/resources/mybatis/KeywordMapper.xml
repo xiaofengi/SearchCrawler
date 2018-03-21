@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.crawler.mysql.mapper.KeywordMapper" >
+  <resultMap id="BaseResultMap" type="org.crawler.mysql.domain.Keyword" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="cat_id" property="catId" jdbcType="INTEGER" />
+    <result column="keyword" property="keyword" jdbcType="VARCHAR" />
+  </resultMap>
+  <select id="selectKeywordByCat" parameterType="java.lang.Long" resultType="java.lang.String">
+  	select 
+  		keyword 
+  	from
+  		crawler_keyword
+  	where cat_id = #{catId,jdbcType=INTEGER} 
+  </select>
+  
+   <insert id="batchInsert">
+  	insert ignore into crawler_keyword
+  	<trim prefix="(" suffix=")" suffixOverrides=",">
+  		 cat_id,
+  		 keyword
+  	</trim>
+  	values
+  	<foreach collection="list" item="item" index="index" separator=",">
+  		(
+  		#{item.catId},
+  		#{item.keyword}
+  		)
+  	</foreach>
+  </insert>
+</mapper>
