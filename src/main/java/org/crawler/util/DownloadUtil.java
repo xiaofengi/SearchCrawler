@@ -23,7 +23,7 @@ public class DownloadUtil {
      * @throws Exception
      *           各种异常
      */
-    public static boolean download(String urlString, String filename,int timeout){
+    public static boolean download(String urlString, String filename,int timeout, String referer){
         boolean ret = false;
         File file = new File(filename);
         try {
@@ -36,6 +36,9 @@ public class DownloadUtil {
                 HttpURLConnection con = (HttpURLConnection)url.openConnection();
                 con.setConnectTimeout(timeout);
                 con.setReadTimeout(timeout);
+                if(referer != null) {
+                	con.setRequestProperty("Referer", referer);
+                }
                 con.connect();
                 int contentLength = con.getContentLength();
                 // 输入流
@@ -141,5 +144,16 @@ public class DownloadUtil {
         }
         return ret;
     }
+    
+    public static void main(String[] args) {
+    	boolean success = download("http://113.215.224.108/vbd48002.baomihua.com/38770aaf01b4b984ca0cb3fc59627caa/5AB3D370/3671/36705432_9_02e16d28d40111e6a94b003048cc631e.mp4?wsrid_tag=5ab3d345_PSzjhsgdiy115_24461-11937&wsiphost=local", 
+				"E:\\Downloads\\crawler\\baidu\\flashFile.mp4", 3600, 
+				"http://baishi.baidu.com/watch/06174005201658404849.html?page=videoMultiNeed");
+    	if(success) {
+			System.out.println("成功");
+		}else {
+			System.out.println("失败");
+		}
+	}
 
 }
