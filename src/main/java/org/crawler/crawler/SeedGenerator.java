@@ -54,7 +54,7 @@ public class SeedGenerator implements CrawlerBeginListener{
 	}
 
 	private void generateKeyword(Crawler cralwer) {
-		cralwer.addSeed(datumGenerator.generateKeyword("人工智能"));
+		cralwer.addSeed(datumGenerator.generateVideoList("人工智能", 0));
 	}
 
 	@Override

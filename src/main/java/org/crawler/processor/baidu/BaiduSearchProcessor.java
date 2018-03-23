@@ -29,6 +29,17 @@ public class BaiduSearchProcessor implements Processor{
 			System.out.println(playVideoUrl);
 		}
 		System.out.println(page.getUrl() + " - 搜索到" + lis.size() + "个视频");
+		//爬取下一页
+		int pn = Integer.parseInt(page.meta("pn"));
+		if(pn > 1000) {
+			return;
+		}
+		if(pn == 0 ) {
+			pn = 60;
+		}else {
+			pn += 20;
+		}
+		next.add(datumGenerator.generateVideoList(page.meta("keyword"), pn));
 	}
 
 }

@@ -11,7 +11,15 @@ public class DatumGenerator {
 	
 	public CrawlDatum generateKeyword(String keyword) {
 		return new CrawlDatum(String.format(DatumConstants.BADIDU_SEARCH_URL, keyword))
-				.meta(ProcessorType.PROCESSOR_TYPE, ProcessorType.PROCESSOR_TYPE_BAIDU_SEARCH);
+				.meta(ProcessorType.PROCESSOR_TYPE, ProcessorType.PROCESSOR_TYPE_BAIDU_SEARCH)
+				.meta("pn", "0");
+	}
+	
+	public CrawlDatum generateVideoList(String keyword, int pn) {
+		return new CrawlDatum(String.format(DatumConstants.BADIDU_SEARCH_URL, keyword, pn))
+				.meta(ProcessorType.PROCESSOR_TYPE, ProcessorType.PROCESSOR_TYPE_BAIDU_SEARCH)
+				.meta("keyword", keyword)
+				.meta("pn", String.valueOf(pn));
 	}
 
 	public CrawlDatum generatePlayPage(String url) {
