@@ -15,15 +15,22 @@ public class DatumGenerator {
 				.meta("pn", "0");
 	}
 	
-	public CrawlDatum generateVideoList(String keyword, int pn) {
-		return new CrawlDatum(String.format(DatumConstants.BADIDU_SEARCH_URL, keyword, pn))
+	public CrawlDatum generateVideoList(String keyword, int pn, int sc) {
+		return new CrawlDatum(String.format(DatumConstants.BADIDU_SEARCH_URL, keyword, pn, sc))
 				.meta(ProcessorType.PROCESSOR_TYPE, ProcessorType.PROCESSOR_TYPE_BAIDU_SEARCH)
 				.meta("keyword", keyword)
-				.meta("pn", String.valueOf(pn));
+				.meta("pn", String.valueOf(pn))
+				.meta("sc", String.valueOf(sc));
 	}
 
 	public CrawlDatum generatePlayPage(String url) {
 		return new CrawlDatum(url)
 				.meta(ProcessorType.PROCESSOR_TYPE, ProcessorType.PROCESSOR_TYPE_BAIDU_PLAY);
+	}
+
+	public CrawlDatum generateRedirectPlayPage(String redirectUrl, String url) {
+		return new CrawlDatum(redirectUrl)
+				.meta(ProcessorType.PROCESSOR_TYPE, ProcessorType.PROCESSOR_TYPE_BAIDU_PLAY)
+				.meta("Referer", url);
 	}
 }

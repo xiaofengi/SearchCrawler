@@ -2,6 +2,7 @@ package org.crawler.processor.baidu;
 
 import javax.annotation.Resource;
 import org.crawler.crawler.DatumGenerator;
+import org.crawler.main.HduStarter;
 import org.crawler.processor.Processor;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -28,18 +29,18 @@ public class BaiduSearchProcessor implements Processor{
 			next.add(datumGenerator.generatePlayPage(playVideoUrl));
 			System.out.println(playVideoUrl);
 		}
+		HduStarter.liSize.getAndAdd(lis.size());
 		System.out.println(page.getUrl() + " - 搜索到" + lis.size() + "个视频");
 		//爬取下一页
-		int pn = Integer.parseInt(page.meta("pn"));
-		if(pn > 1000) {
-			return;
+		if(page.getHtml().contains("filter-item next-page-btn")){ //下一页有效
+			int pn = Integer.parseInt(page.meta("pn"));
+			if(pn == 0) {
+				pn = 60;
+			}else {
+				pn += 20;	
+			}
+			next.add(datumGenerator.generateVideoList(page.meta("keyword"), pn, Integer.parseInt(page.meta("sc"))));
 		}
-		if(pn == 0 ) {
-			pn = 60;
-		}else {
-			pn += 20;
-		}
-		next.add(datumGenerator.generateVideoList(page.meta("keyword"), pn));
 	}
 
 }

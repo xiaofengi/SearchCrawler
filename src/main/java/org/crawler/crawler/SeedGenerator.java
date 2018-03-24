@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.crawler.constants.CrawlerType;
+import org.crawler.constants.DatumConstants;
 import org.crawler.listener.CrawlerBeginListener;
 import org.crawler.mysql.mapper.KeywordMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,13 +49,21 @@ public class SeedGenerator implements CrawlerBeginListener{
 		case CrawlerType.KEYWORD:
 			generateKeyword(crawler);
 			break;
+		case CrawlerType.PLAY_PAGE:
+			generatePlayPage(crawler);
+			break;
 		default:
 			break;
 		}
 	}
 
 	private void generateKeyword(Crawler cralwer) {
-		cralwer.addSeed(datumGenerator.generateVideoList("人工智能", 0));
+		cralwer.addSeed(datumGenerator.generateVideoList("人工智能", 0, DatumConstants.SC_EASTDAY));
+	}
+	
+	private void generatePlayPage(Crawler crawler) { //测试用
+		String testUrl = "http://v.youku.com/v_show/id_XNTg1MzEzNzE2.html";
+		crawler.addSeed(datumGenerator.generatePlayPage(testUrl));
 	}
 
 	@Override

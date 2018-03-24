@@ -2,13 +2,13 @@ package org.crawler.processor.baidu;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
-
 import javax.annotation.Resource;
-
-import org.apache.log4j.Logger;
 import org.crawler.crawler.DatumGenerator;
+import org.crawler.main.HduStarter;
 import org.crawler.processor.Processor;
 import org.crawler.util.DownloadUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import cn.edu.hfut.dmic.webcollector.model.CrawlDatums;
 import cn.edu.hfut.dmic.webcollector.model.Page;
@@ -16,17 +16,17 @@ import cn.edu.hfut.dmic.webcollector.model.Page;
 @Component
 public class BaiduPlayProcessor implements Processor{
 	
-	private static Logger logger = Logger.getLogger(BaiduPlayProcessor.class); 
+	private static Logger logger = LoggerFactory.getLogger(BaiduPlayProcessor.class); 
 	
 	@Resource
 	private DatumGenerator datumGenerator;
 
 	@Override
 	public void process(Page page, CrawlDatums next) {
-		if(page.matchUrl("http://baishi.baidu.com/watch/.*")){
+		if(page.matchUrl("http://baishi.baidu.com/watch/.*")){ //百度视频
 			int start = page.getHtml().indexOf("video=http");
 			if(start == -1) {
-				System.out.println("fail:" + page.getUrl());
+				logger.info("fail:" + page.getUrl());
 				return;
 			}
 			String tmp = page.getHtml().substring(start+6, start+500);
@@ -46,16 +46,17 @@ public class BaiduPlayProcessor implements Processor{
 			}else {
 				System.out.println("失败");
 			}
-		}else if(page.matchUrl("http://baishi.baidu.com/link.*")){
+		}else if(page.matchUrl("http://baishi.baidu.com/link.*")){ //百度视频重定向其他视频网站
 			String redirectUrl = page.select("#link").get(0).attr("href");
-			System.out.println("redirectUrl:" + redirectUrl);
-			next.add(datumGenerator.generatePlayPage(redirectUrl));
-		}else if (page.matchUrl("http://video.eastday.com/a/.*")) {
+			logger.info(page.getUrl()+"重定向到" + redirectUrl);
+			next.add(datumGenerator.generateRedirectPlayPage(redirectUrl, page.getUrl()));
+		}else if (page.matchUrl("http://video.eastday.com.*")) { //东方头条视频		
 			int start = page.getHtml().indexOf("mp4 = ");
 			if(start == -1) {
-				System.out.println("fail:" + page.getUrl());
+				logger.info("fail:" + page.getUrl());
 				return;
 			}
+			HduStarter.eastDaySize.getAndIncrement();
 			String tmp = page.getHtml().substring(start+7, start+100);
 			int end = tmp.indexOf("mp4\";");
 			String downloadUrl = "http:" + tmp.substring(0, end+3);
@@ -68,8 +69,8 @@ public class BaiduPlayProcessor implements Processor{
 			}else {
 				System.out.println("失败");
 			}
-		}else {
-			System.out.println("fail:" + page.getUrl());
+		}else { //其他视频网站暂不处理
+			logger.info("fail:" + page.getUrl());
 		}
 	}
 

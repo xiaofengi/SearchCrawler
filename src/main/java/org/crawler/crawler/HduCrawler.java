@@ -3,6 +3,7 @@ package org.crawler.crawler;
 import java.util.Map;
 import org.crawler.listener.CrawlerBeginListener;
 import org.crawler.listener.CrawlerEndListener;
+import org.crawler.main.HduStarter;
 import org.crawler.processor.manager.ProcessorManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -84,7 +85,8 @@ public class HduCrawler extends BreadthCrawler implements ApplicationContextAwar
 		} catch (Exception e) {
 			logger.error(e.getMessage());
 		}
-		
+		logger.info("搜索视频数：" + HduStarter.liSize.get());
+		logger.info("下载视频数：" + HduStarter.eastDaySize.get());
 		logger.info("request end");
         notifyEndCrawler();
         logger.info("crawler end" );
