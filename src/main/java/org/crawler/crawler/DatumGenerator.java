@@ -15,6 +15,13 @@ public class DatumGenerator {
 				.meta("pn", "0");
 	}
 	
+	/**
+	 * 生成百度视频搜索列表
+	 * @param keyword 搜索关键字
+	 * @param pn 页数标记(0,60,80,100...)
+	 * @param sc 视频来源
+	 * @return
+	 */
 	public CrawlDatum generateVideoList(String keyword, int pn, int sc) {
 		return new CrawlDatum(String.format(DatumConstants.BADIDU_SEARCH_URL, keyword, pn, sc))
 				.meta(ProcessorType.PROCESSOR_TYPE, ProcessorType.PROCESSOR_TYPE_BAIDU_SEARCH)
@@ -32,5 +39,12 @@ public class DatumGenerator {
 		return new CrawlDatum(redirectUrl)
 				.meta(ProcessorType.PROCESSOR_TYPE, ProcessorType.PROCESSOR_TYPE_BAIDU_PLAY)
 				.meta("Referer", url);
+	}
+
+	public CrawlDatum generatecCCTVVideo(String videoId, String referer) {
+		return new CrawlDatum(String.format(DatumConstants.CCTV_VIDEO_INTERFACE, videoId))
+				.meta(ProcessorType.PROCESSOR_TYPE, ProcessorType.PROCESSOR_TYPE_BAIDU_PLAY)
+				.meta("Referer", referer)
+				.meta("videoId", videoId);
 	}
 }

@@ -23,7 +23,7 @@ public class BaiduSearchProcessor implements Processor{
 		Elements lis = page.select(".result");
 		for(Element li : lis) {
 			String playVideoUrl = li.getElementsByTag("a").get(0).attr("href");
-			if(playVideoUrl.charAt(0) == '/') {//东方头条视频加refer字段
+			if(playVideoUrl.charAt(0) == '/') {//百度链接到其他视频网站
 				playVideoUrl = "http://baishi.baidu.com" + playVideoUrl;
 			}
 			next.add(datumGenerator.generatePlayPage(playVideoUrl));

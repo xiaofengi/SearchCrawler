@@ -58,7 +58,7 @@ public class SeedGenerator implements CrawlerBeginListener{
 	}
 
 	private void generateKeyword(Crawler cralwer) {
-		cralwer.addSeed(datumGenerator.generateVideoList("人工智能", 0, DatumConstants.SC_EASTDAY));
+		cralwer.addSeed(datumGenerator.generateVideoList("人工智能", 0, DatumConstants.SC_CCTV));
 	}
 	
 	private void generatePlayPage(Crawler crawler) { //测试用

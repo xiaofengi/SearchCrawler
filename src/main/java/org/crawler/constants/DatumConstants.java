@@ -1,9 +1,6 @@
 package org.crawler.constants;
 
-public class DatumConstants {
-	
-	//rn:每页数量  pn:页面数 sc:来源 du:时长 pd：更新时间
-	public static final String BADIDU_SEARCH_URL = "http://v.baidu.com/v?ct=301989888&rn=20&db=0&s=25&ie=utf-8&word=%s&pn=%d&sc=%d";	
+public class DatumConstants {	
 	public static final int SC_ALL = 0;
 	public static final int SC_IQIYI = 1;
 	public static final int SC_PPS = 2;
@@ -28,4 +25,13 @@ public class DatumConstants {
 	public static final int SC_AIPAI = 23;
 	public static final int SC_YINYUETAI = 24;
 	public static final int SC_EASTDAY = 25;
+	
+	public static final String DOWNLOAD_LOC_BAIDU = "E:\\Downloads\\crawler\\baidu\\baidu\\";
+	public static final String DOWNLOAD_LOC_EASTDAY = "E:\\Downloads\\crawler\\baidu\\eastday\\";
+	public static final String DOWNLOAD_LOC_CCTV = "E:\\Downloads\\crawler\\baidu\\cctv\\";
+	
+	//rn:每页数量  pn:页面数 sc:来源 du:时长 pd：更新时间
+	public static final String BADIDU_SEARCH_URL = "http://v.baidu.com/v?rn=20&ie=utf-8&word=%s&pn=%d&sc=%d";
+	public static final String CCTV_VIDEO_INTERFACE = "http://xiyou.cctv.com/interface/index?videoId=%s";
+
 }
