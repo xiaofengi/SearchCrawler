@@ -47,4 +47,9 @@ public class DatumGenerator {
 				.meta("Referer", referer)
 				.meta("videoId", videoId);
 	}
+
+	public CrawlDatum generateKu6PlayPage(String testUrl) {
+		return new CrawlDatum(testUrl)
+				.meta(ProcessorType.PROCESSOR_TYPE, ProcessorType.PROCESSOR_TYPE_KU6_PLAY);
+	}
 }

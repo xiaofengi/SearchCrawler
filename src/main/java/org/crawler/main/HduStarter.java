@@ -16,6 +16,7 @@ public class HduStarter {
 	public static AtomicLong baidusize = new AtomicLong(0L);
 	public static AtomicLong eastDaySize = new AtomicLong(0L);
 	public static AtomicLong cctvSize = new AtomicLong(0L);
+	public static AtomicLong ku6Size = new AtomicLong(0L);
 
 	@SuppressWarnings("resource")
 	public static void main(String[] args) throws InterruptedException {

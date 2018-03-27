@@ -52,9 +52,17 @@ public class SeedGenerator implements CrawlerBeginListener{
 		case CrawlerType.PLAY_PAGE:
 			generatePlayPage(crawler);
 			break;
+		case CrawlerType.KU6_PLAY_PAGE:
+			generateKu6PlayPage(crawler);
+			break;
 		default:
 			break;
 		}
+	}
+
+	private void generateKu6PlayPage(Crawler crawler) {
+		String testUrl = "https://www.ku6.com/video/detail?id=dFH1x8pAQPM1HGRH_1kPhcqqlGQ.";
+		crawler.addSeed(datumGenerator.generateKu6PlayPage(testUrl));
 	}
 
 	private void generateKeyword(Crawler cralwer) {

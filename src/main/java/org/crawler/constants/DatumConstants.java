@@ -29,6 +29,7 @@ public class DatumConstants {
 	public static final String DOWNLOAD_LOC_BAIDU = "E:\\Downloads\\crawler\\baidu\\baidu\\";
 	public static final String DOWNLOAD_LOC_EASTDAY = "E:\\Downloads\\crawler\\baidu\\eastday\\";
 	public static final String DOWNLOAD_LOC_CCTV = "E:\\Downloads\\crawler\\baidu\\cctv\\";
+	public static final String DOWNLOAD_LOC_KU6 = "E:\\Downloads\\crawler\\baidu\\ku6\\";
 	
 	//rn:每页数量  pn:页面数 sc:来源 du:时长 pd：更新时间
 	public static final String BADIDU_SEARCH_URL = "http://v.baidu.com/v?rn=20&ie=utf-8&word=%s&pn=%d&sc=%d";
