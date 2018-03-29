@@ -9,6 +9,7 @@ import org.crawler.processor.Processor;
 import org.crawler.processor.baidu.BaiduPlayProcessor;
 import org.crawler.processor.baidu.BaiduSearchProcessor;
 import org.crawler.processor.baidu.Ku6PlayProcessor;
+import org.crawler.processor.youtube.YoutubeListProcessor;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -38,5 +39,6 @@ public class ProcessorManager implements ApplicationContextAware{
 		processors.put(ProcessorType.PROCESSOR_TYPE_BAIDU_SEARCH, applicationContext.getBean(BaiduSearchProcessor.class));
 		processors.put(ProcessorType.PROCESSOR_TYPE_BAIDU_PLAY, applicationContext.getBean(BaiduPlayProcessor.class));
 		processors.put(ProcessorType.PROCESSOR_TYPE_KU6_PLAY, applicationContext.getBean(Ku6PlayProcessor.class));
+		processors.put(ProcessorType.PROCESSOR_TYPE_YOUTUBE_LIST, applicationContext.getBean(YoutubeListProcessor.class));
 	}
 }

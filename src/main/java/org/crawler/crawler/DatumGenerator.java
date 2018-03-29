@@ -10,7 +10,7 @@ public class DatumGenerator {
 	//private static final Logger logger = LoggerFactory.getLogger(DatumGenerator.class);
 	
 	public CrawlDatum generateKeyword(String keyword) {
-		return new CrawlDatum(String.format(DatumConstants.BADIDU_SEARCH_URL, keyword))
+		return new CrawlDatum(String.format(DatumConstants.BAIDU_SEARCH_URL, keyword))
 				.meta(ProcessorType.PROCESSOR_TYPE, ProcessorType.PROCESSOR_TYPE_BAIDU_SEARCH)
 				.meta("pn", "0");
 	}
@@ -23,7 +23,7 @@ public class DatumGenerator {
 	 * @return
 	 */
 	public CrawlDatum generateVideoList(String keyword, int pn, int sc) {
-		return new CrawlDatum(String.format(DatumConstants.BADIDU_SEARCH_URL, keyword, pn, sc))
+		return new CrawlDatum(String.format(DatumConstants.BAIDU_SEARCH_URL, keyword, pn, sc))
 				.meta(ProcessorType.PROCESSOR_TYPE, ProcessorType.PROCESSOR_TYPE_BAIDU_SEARCH)
 				.meta("keyword", keyword)
 				.meta("pn", String.valueOf(pn))
@@ -51,5 +51,10 @@ public class DatumGenerator {
 	public CrawlDatum generateKu6PlayPage(String testUrl) {
 		return new CrawlDatum(testUrl)
 				.meta(ProcessorType.PROCESSOR_TYPE, ProcessorType.PROCESSOR_TYPE_KU6_PLAY);
+	}
+
+	public CrawlDatum generateYoutubeList(String keyword) {
+		return new CrawlDatum(String.format(DatumConstants.YOUTU_SEARCH_URL, keyword))
+				.meta(ProcessorType.PROCESSOR_TYPE, ProcessorType.PROCESSOR_TYPE_YOUTUBE_LIST);
 	}
 }

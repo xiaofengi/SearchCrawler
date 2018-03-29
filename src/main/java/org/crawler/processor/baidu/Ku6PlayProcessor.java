@@ -57,6 +57,9 @@ public class Ku6PlayProcessor implements Processor{
 			if(page.select("video").first() != null) {
 				Element video = page.select("video").first();
 				Element source = video.getElementsByTag("source").first();
+				if(source == null) {
+					return;
+				}
 				String src = source.attr("src");
 				String fileName = DatumConstants.DOWNLOAD_LOC_KU6 + src.substring(src.lastIndexOf("/")+1);
 				if(!fileName.contains(".")) {

@@ -55,9 +55,16 @@ public class SeedGenerator implements CrawlerBeginListener{
 		case CrawlerType.KU6_PLAY_PAGE:
 			generateKu6PlayPage(crawler);
 			break;
+		case CrawlerType.YOUTUBE_SEARCH:
+			generateYoutubeList(crawler);
+			break;
 		default:
 			break;
 		}
+	}
+
+	private void generateYoutubeList(Crawler crawler) {
+		crawler.addSeed(datumGenerator.generateYoutubeList("人工智能"));
 	}
 
 	private void generateKu6PlayPage(Crawler crawler) {

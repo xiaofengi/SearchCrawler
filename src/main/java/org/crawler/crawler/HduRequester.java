@@ -61,6 +61,21 @@ public class HduRequester implements Requester, CrawlerBeginListener, CrawlerEnd
 				request.setHeader("Referer", crawlDatum.meta("Referer"));
 			}
 			break;
+		case ProcessorType.PROCESSOR_TYPE_YOUTUBE_LIST:
+			request.setHeader("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.140 Safari/537.36");
+			request.setCookie("VISITOR_INFO1_LIVE=EzJV7E3gjr0; SID=NAVMifB-wvRZg_XV7HICBT67GT1tKvBQUCq2xskgMTVQhC6LKJaR3apM_949e0lBDSBPtw.; HSID=A_6HcDLRBttV-fEHi; SSID=AteEO8zoelTmY0_4b; APISID=qMYD0zY0RxQ3EqPO/AxuY5BI-_YHQrrbIj; SAPISID=y35kNgi8LP2Nt-yZ/AUY00eUQzGh8jj00y; CONSENT=YES+CN.zh-CN+20170903-09-0; LOGIN_INFO=ACn9GHowRAIgBQH-LEMv1Nuq0klFnwOnmBCHn37kMJb9FnVHiNunlC4CIGVb_ifU0HQK_oJXMSS75NjmyTjp7cD-BB_IAA1E5fMJ:QUxJMndvR2lObFpQdEhQUktfY2hyZ25mOHN2LTZHS0JFWjQzWDNEdXl6dUpMSXFJX24tZDZyVUVrSmt1RnpUUXVERVF6bFZ1S09KOE1yQUkxMVNBVjc0NXN6N1EyTmtDTmVaZi1zUEpyUV9DcDEzQTFySEEta1V2TE5xZTl3dUpsT1d0RVRac1FtLUJ0UkZyVkVwZ3NOMnZZLVVZLXNDbFc0djZ2V3FFUklfVGJ4WHZrYk5pMXBn; PREF=f1=50000000&al=zh-CN; YSC=kaqiTayd01Q; ST-1i14npa=oq=%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD&gs_l=youtube.3..0i12k1l10.51203.55934.0.56253.20.17.2.0.0.0.730.7059.3-11j1j2j2.16.0....0...1ac.4.64.youtube..5.15.6012...0.0.GAHewAixluE&feature=web-masthead-search&itct=CCoQ7VAiEwimh7_A4JHaAhUHx8EKHZmgDX8ojh4%3D&csn=ofm8WuayG4eOhwaZwbb4Bw");
+			request.setHeader("referer", " https://www.youtube.com/");
+			request.addHeader("x-client-data", "CIS2yQEIpbbJAQjEtskBCKmdygEIqKPKAQ==");
+			request.addHeader("x-spf-previous", "https://www.youtube.com/");
+			request.addHeader("x-spf-referer", "https://www.youtube.com/");
+			request.addHeader("x-youtube-client-name", "1");
+			request.addHeader("x-youtube-client-version", "2.20180328");
+			request.addHeader("x-youtube-identity-token", "QUFFLUhqbWtiMHNfdC1UZE96eEFERFlFbUdaRUJfOW8yZ3w=");
+			request.addHeader("x-youtube-page-cl", "190715957");
+			request.addHeader("x-youtube-page-label", "youtube.ytfe.desktop_20180327_5_RC0");
+			request.addHeader("x-youtube-sts", "17616");
+			request.addHeader("x-youtube-variants-checksum", "49f92a48c02b74aaca23e1c7b1fd5f9c");
+			break;
 		default:
 			break;
 		}	
