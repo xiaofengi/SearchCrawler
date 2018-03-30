@@ -57,4 +57,8 @@ public class DatumGenerator {
 		return new CrawlDatum(String.format(DatumConstants.YOUTU_SEARCH_URL, keyword))
 				.meta(ProcessorType.PROCESSOR_TYPE, ProcessorType.PROCESSOR_TYPE_YOUTUBE_LIST);
 	}
+
+    public CrawlDatum generateYoutubePlay(String videoId) {
+		return null;
+    }
 }
