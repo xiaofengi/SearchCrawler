@@ -38,13 +38,13 @@ public class DatumGenerator {
 	public CrawlDatum generateRedirectPlayPage(String redirectUrl, String url) {
 		return new CrawlDatum(redirectUrl)
 				.meta(ProcessorType.PROCESSOR_TYPE, ProcessorType.PROCESSOR_TYPE_BAIDU_PLAY)
-				.meta("Referer", url);
+				.meta("referer", url);
 	}
 
-	public CrawlDatum generatecCCTVVideo(String videoId, String referer) {
+	public CrawlDatum generateCCTVVideo(String videoId, String referer) {
 		return new CrawlDatum(String.format(DatumConstants.CCTV_VIDEO_INTERFACE, videoId))
 				.meta(ProcessorType.PROCESSOR_TYPE, ProcessorType.PROCESSOR_TYPE_BAIDU_PLAY)
-				.meta("Referer", referer)
+				.meta("referer", referer)
 				.meta("videoId", videoId);
 	}
 
@@ -54,11 +54,14 @@ public class DatumGenerator {
 	}
 
 	public CrawlDatum generateYoutubeList(String keyword) {
-		return new CrawlDatum(String.format(DatumConstants.YOUTU_SEARCH_URL, keyword))
+		return new CrawlDatum(String.format(DatumConstants.YOUTUBE_SEARCH_URL, keyword))
 				.meta(ProcessorType.PROCESSOR_TYPE, ProcessorType.PROCESSOR_TYPE_YOUTUBE_LIST);
 	}
 
-    public CrawlDatum generateYoutubePlay(String videoId) {
-		return null;
+    public CrawlDatum generateYoutubePlay(String videoId, String referer) {
+		return new CrawlDatum(String.format(DatumConstants.YOUTUBE_PLAY_URL, videoId))
+				.meta(ProcessorType.PROCESSOR_TYPE, ProcessorType.PROCESSOR_TYPE_YOUTUBE_PLAY)
+				.meta("referer", referer)
+				.meta("videoId", videoId);
     }
 }

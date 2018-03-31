@@ -81,7 +81,7 @@ public class BaiduPlayProcessor implements Processor{
 		}else if (page.matchUrl("http://xiyou\\.cctv\\.com/v-.*")) {//cctv视频播放页面，不是视频地址
 			String videoId = page.getUrl().substring(page.getUrl().indexOf("v-")+2, page.getUrl().indexOf(".html"));
 			//爬取cctv视频地址信息接口
-			next.add(datumGenerator.generatecCCTVVideo(videoId, page.getUrl()));
+			next.add(datumGenerator.generateCCTVVideo(videoId, page.getUrl()));
 		}else if(page.matchUrl("http://xiyou\\.cctv\\.com/interface/index\\?videoId=.*")) {//cctv视频地址信息接口
 			Map videoInfo = new Gson().fromJson(page.getHtml(), Map.class);
 			List<Map> data = (List<Map>)videoInfo.get("data");

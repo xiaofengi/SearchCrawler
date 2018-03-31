@@ -39,7 +39,7 @@ public class YoutubeListProcessor implements Processor{
 					for(Map videoContent:videoContents){
 						Map videoRenderer = (Map)videoContent.get("videoRenderer");
 						String videoId = (String)videoRenderer.get("videoId");
-						next.add(datumGenerator.generateYoutubePlay(videoId));
+						next.add(datumGenerator.generateYoutubePlay(videoId, page.getUrl()));
 						count++;
 					}
 				}
