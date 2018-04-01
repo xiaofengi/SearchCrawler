@@ -68,7 +68,7 @@ public class BaiduPlayProcessor implements Processor{
 			String tmp = page.getHtml().substring(start+7, start+100);
 			int end = tmp.indexOf("mp4\";");
 			String downloadUrl = "http:" + tmp.substring(0, end+3);
-			String fileName = "E:\\Downloads\\crawler\\baidu\\eastday\\" + downloadUrl.substring(downloadUrl.lastIndexOf("/")+1);
+			String fileName = DatumConstants.DOWNLOAD_LOC_EASTDAY + downloadUrl.substring(downloadUrl.lastIndexOf("/")+1);
 			boolean success = DownloadUtil.download(downloadUrl,  fileName, 3600, page.getUrl());
 			System.out.println("下载");
 			System.out.println(downloadUrl);

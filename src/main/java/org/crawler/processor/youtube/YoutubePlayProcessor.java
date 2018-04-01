@@ -8,6 +8,8 @@ import org.crawler.processor.Processor;
 import org.crawler.util.DownloadUtil;
 import org.springframework.stereotype.Component;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -25,7 +27,12 @@ public class YoutubePlayProcessor implements Processor{
                 String fileFormat = videoUrlInfo.substring(0, videoUrlInfo.indexOf("%3B"));
                 matcher = pattern.matcher(videoUrlInfo);
                 if(matcher.find()) {
-                    String downloadUrl = matcher.group();
+                    String downloadUrl = null;
+                    try {
+                        downloadUrl = URLDecoder.decode(matcher.group(), "utf-8");
+                    } catch (UnsupportedEncodingException e) {
+                        e.printStackTrace();
+                    }
                     String fileName = DatumConstants.DOWNLOAD_LOC_YOUTUBE + page.meta("videoId") + "." + fileFormat;
                     boolean success = DownloadUtil.download(downloadUrl, fileName, 3600, page.meta("referer"));
                     System.out.println("下载");
