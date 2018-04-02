@@ -58,9 +58,17 @@ public class SeedGenerator implements CrawlerBeginListener{
 		case CrawlerType.YOUTUBE_SEARCH:
 			generateYoutubeList(crawler);
 			break;
+			case CrawlerType.FACEBOOK_FRIENDS_LIST:
+			generateFbFriendsList(crawler);
+			break;
 		default:
 			break;
 		}
+	}
+
+	private void generateFbFriendsList(Crawler crawler) {
+		String testUrl = "https://www.facebook.com/Kobe.Thomas/friends?lst=100025261115546%3A602278835%3A1522671544&source_ref=pb_friends_tl";
+		crawler.addSeed(datumGenerator.generateFbFriendsList(testUrl));
 	}
 
 	private void generateYoutubeList(Crawler crawler) {
@@ -72,8 +80,8 @@ public class SeedGenerator implements CrawlerBeginListener{
 		crawler.addSeed(datumGenerator.generateKu6PlayPage(testUrl));
 	}
 
-	private void generateKeyword(Crawler cralwer) {
-		cralwer.addSeed(datumGenerator.generateVideoList("人工智能", 0, DatumConstants.SC_CCTV));
+	private void generateKeyword(Crawler crawler) {
+		crawler.addSeed(datumGenerator.generateVideoList("人工智能", 0, DatumConstants.SC_CCTV));
 	}
 	
 	private void generatePlayPage(Crawler crawler) { //测试用

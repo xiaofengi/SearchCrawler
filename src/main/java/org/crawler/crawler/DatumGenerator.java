@@ -64,4 +64,9 @@ public class DatumGenerator {
 				.meta("referer", referer)
 				.meta("videoId", videoId);
     }
+
+    public CrawlDatum generateFbFriendsList(String url) {
+		return new CrawlDatum(url)
+				.meta(ProcessorType.PROCESSOR_TYPE, ProcessorType.PROCESSOR_TYPE_FACEBOOK_FRIENDS_LIST);
+    }
 }
