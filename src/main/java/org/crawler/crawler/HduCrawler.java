@@ -86,7 +86,7 @@ public class HduCrawler extends BreadthCrawler implements ApplicationContextAwar
 			logger.error(e.getMessage());
 		}
 		logger.info("搜索视频数：" + HduStarter.liSize.get());
-		logger.info("下载百度视频数：" + HduStarter.baidusize.get());
+		logger.info("下载百度视频数：" + HduStarter.baiduSize.get());
 		logger.info("下载东方头条视频数：" + HduStarter.eastDaySize.get());
 		logger.info("下载cctv视频数：" + HduStarter.cctvSize.get());
 		logger.info("下载酷6视频数：" + HduStarter.ku6Size.get());

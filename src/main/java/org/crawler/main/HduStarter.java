@@ -3,6 +3,7 @@ package org.crawler.main;
 import java.util.Properties;
 import java.util.concurrent.atomic.AtomicLong;
 
+import edu.umd.cs.findbugs.annotations.SuppressWarnings;
 import org.crawler.crawler.HduCrawler;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -14,7 +15,7 @@ import org.springframework.context.annotation.PropertySource;
 public class HduStarter {
 	
 	public static AtomicLong liSize = new AtomicLong(0L);
-	public static AtomicLong baidusize = new AtomicLong(0L);
+	public static AtomicLong baiduSize = new AtomicLong(0L);
 	public static AtomicLong eastDaySize = new AtomicLong(0L);
 	public static AtomicLong cctvSize = new AtomicLong(0L);
 	public static AtomicLong ku6Size = new AtomicLong(0L);

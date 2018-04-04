@@ -54,7 +54,7 @@ public class BaiduPlayProcessor implements Processor{
 			}else {
 				System.out.println("失败");
 			}
-			HduStarter.baidusize.getAndIncrement();
+			HduStarter.baiduSize.getAndIncrement();
 		}else if(page.matchUrl("http://baishi\\.baidu\\.com/link.*")){ //百度视频重定向其他视频网站
 			String redirectUrl = page.select("#link").get(0).attr("href");
 			logger.info(page.getUrl()+"重定向到" + redirectUrl);
