@@ -1,4 +1,4 @@
-package org.crawler.mysql.domain;
+package org.crawler.mysql.model;
 
 import java.io.Serializable;
 

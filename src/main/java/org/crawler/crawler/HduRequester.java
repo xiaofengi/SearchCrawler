@@ -1,7 +1,10 @@
 package org.crawler.crawler;
 
+import java.io.UnsupportedEncodingException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+
+import org.crawler.constants.DatumConstants;
 import org.crawler.constants.ProcessorType;
 import org.crawler.listener.CrawlerBeginListener;
 import org.crawler.listener.CrawlerEndListener;
@@ -79,6 +82,17 @@ public class HduRequester implements Requester, CrawlerBeginListener, CrawlerEnd
 			case ProcessorType.PROCESSOR_TYPE_FACEBOOK_FRIENDS_LIST:
 				//facebook账号cookie
 				request.setCookie("datr=6B3CWoBQ0_uvkPBIWSDMiO1l; sb=7R3CWhsjE_MJSIs2bPwriFb6; c_user=100025261115546; xs=35%3AIIrVA_3JwGiPFA%3A2%3A1522671085%3A-1%3A-1; fr=0wiotCZ6lTlDopX0T.AWW9qs8IncTTc5vWSt3nWOHcnoQ.Bawh3o.xf.AAA.0.0.Bawh3t.AWWEOFBl; pl=n; act=1522671572435%2F1; wd=1920x302; presence=EDvF3EtimeF1522671954EuserFA21B25261115546A2EstateFDutF1522671954526CEchFDp_5f1B25261115546F4CC");
+				request.setMethod("POST");
+				request.setHeader("origin", "https://m.facebook.com");
+				request.setHeader("referer", "https://m.facebook.com/thomas.okoto.9/friends");
+				request.setHeader("Content-Type", "application/x-www-form-urlencoded");
+				request.setHeader("x-requested-with", "XMLHttpRequest");
+				request.setHeader("x-response-format", "JSONStream");
+				try {
+					request.setOutputData(crawlDatum.meta("fbFriendLsParam").getBytes("utf-8"));
+				} catch (UnsupportedEncodingException e) {
+					e.printStackTrace();
+				}
 		default:
 			break;
 		}	

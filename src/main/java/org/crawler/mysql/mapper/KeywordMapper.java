@@ -3,7 +3,7 @@ package org.crawler.mysql.mapper;
 import java.util.List;
 import java.util.Set;
 
-import org.crawler.mysql.domain.Keyword;
+import org.crawler.mysql.model.Keyword;
 
 public interface KeywordMapper {
 	public Set<String> selectKeywordByCat(Long catId);

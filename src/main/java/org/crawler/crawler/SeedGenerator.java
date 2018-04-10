@@ -9,6 +9,7 @@ import java.util.Set;
 
 import org.crawler.constants.CrawlerType;
 import org.crawler.constants.DatumConstants;
+import org.crawler.entity.FbFriendsListParam;
 import org.crawler.listener.CrawlerBeginListener;
 import org.crawler.mysql.mapper.KeywordMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,8 +68,13 @@ public class SeedGenerator implements CrawlerBeginListener{
 	}
 
 	private void generateFbFriendsList(Crawler crawler) {
-		String testUrl = "https://www.facebook.com/Kobe.Thomas/friends?lst=100025261115546%3A602278835%3A1522671544&source_ref=pb_friends_tl";
-		crawler.addSeed(datumGenerator.generateFbFriendsList(testUrl));
+		//String testUrl = "https://www.facebook.com/Kobe.Thomas/friends?lst=100025261115546%3A602278835%3A1522671544&source_ref=pb_friends_tl";
+		String testUrl = String.format(DatumConstants.FACEBOOK_FRIENDS_LIST_MOBILE,
+				"AQHRwhNQ-x4RNqL47js2DzbcMvO3Zz0Uf5ZPATeLCIxvuaRVg-B754A7mEDMB27_AHusqPkKRUVBGQE-PvyxiPYVQA", "100025261115546:100021470634366:1523351362");
+		FbFriendsListParam param = new FbFriendsListParam("", "AQGVAivEuRac:AQGjdw5KStpw",
+				"1KQdAmm1gxu4U4ifDgy8xfKl3oS9xG6UO3m2i5UfXwqovzE6u7E5G0w8hwmU3Mx61YCwoo3XwIwk9EdEnw9u0XoswvoszEG2i3G1Qw", "kn", "AYlH8ydFRLABWzA-KSPd6VQ26dyi-kPqsWtDmsUiRkJyGy0pzf2uQprh0cfPZud2WTZQyOklwrOKpygeV9qtuiSqisEcRtMJkye7wZ2tYK_TgQ",
+				100025261115546L);
+		crawler.addSeed(datumGenerator.generateFbFriendsList(testUrl, param));
 	}
 
 	private void generateYoutubeList(Crawler crawler) {

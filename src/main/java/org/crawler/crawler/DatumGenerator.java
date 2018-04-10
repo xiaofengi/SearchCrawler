@@ -2,8 +2,12 @@ package org.crawler.crawler;
 
 import org.crawler.constants.DatumConstants;
 import org.crawler.constants.ProcessorType;
+import org.crawler.entity.FbFriendsListParam;
 import org.springframework.stereotype.Component;
 import cn.edu.hfut.dmic.webcollector.model.CrawlDatum;
+
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 
 @Component
 public class DatumGenerator {
@@ -65,8 +69,28 @@ public class DatumGenerator {
 				.meta("videoId", videoId);
     }
 
-    public CrawlDatum generateFbFriendsList(String url) {
+    public CrawlDatum generateFbFriendsList(String url, FbFriendsListParam fbFriendsListParam) {
+		StringBuilder param = new StringBuilder();
+		boolean first=true;
+		for (Field field : fbFriendsListParam.getClass().getDeclaredFields()) {
+			field.setAccessible(true);
+			try {
+				if (!Modifier.isStatic(field.getModifiers()) && field.get(fbFriendsListParam) != null) {
+					if(!first) {
+						param.append("&");
+					}else {
+						first = false;
+					}
+					param.append(field.getName()+"="+field.get(fbFriendsListParam));
+				}
+			} catch (IllegalArgumentException e) {
+				e.printStackTrace();
+			} catch (IllegalAccessException e) {
+				e.printStackTrace();
+			}
+		}
 		return new CrawlDatum(url)
-				.meta(ProcessorType.PROCESSOR_TYPE, ProcessorType.PROCESSOR_TYPE_FACEBOOK_FRIENDS_LIST);
+				.meta(ProcessorType.PROCESSOR_TYPE, ProcessorType.PROCESSOR_TYPE_FACEBOOK_FRIENDS_LIST)
+				.meta("fbFriendLsParam", param.toString());
     }
 }
