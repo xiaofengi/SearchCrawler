@@ -93,6 +93,7 @@ public class HduRequester implements Requester, CrawlerBeginListener, CrawlerEnd
 				} catch (UnsupportedEncodingException e) {
 					e.printStackTrace();
 				}
+				break;
 		default:
 			break;
 		}	

@@ -20,7 +20,7 @@ public class YoutubePlayProcessor implements Processor{
     public void process(Page page, CrawlDatums next) {
         Matcher matcher = Pattern.compile("(?<=url_encoded_fmt_stream_map\":\").*(?=\",)").matcher(page.getHtml());
         if(matcher.find()){
-            String[] videoUrlInfos =  matcher.group().split("type=video%2F");
+            String[] videoUrlInfos = matcher.group().split("type=video%2F");
             Pattern pattern = Pattern.compile("(?<=url=).*(,)?");
             for(int i=1; i<videoUrlInfos.length; i++){
                 String videoUrlInfo = videoUrlInfos[i];

@@ -23,6 +23,7 @@ public class YoutubeListProcessor implements Processor{
 
 	@Override
 	public void process(Page page, CrawlDatums next) {
+		System.out.println(page.getHtml());
 		List<Map> responseList = new Gson().fromJson(page.getHtml(), new TypeToken<List<Map>>() {}.getType());
 		int count = 0;
 		for(Map map:responseList){
@@ -34,13 +35,25 @@ public class YoutubeListProcessor implements Processor{
 				Map sectionListRenderer = (Map)primaryContents.get("sectionListRenderer");
 				List<Map> contents1 = (List<Map>)sectionListRenderer.get("contents");
 				for(Map content:contents1) {
-					Map itemSectionRenderer = (Map) content.get("itemSectionRenderer");
+					Map itemSectionRenderer = (Map)content.get("itemSectionRenderer");
 					List<Map> videoContents = (List<Map>)itemSectionRenderer.get("contents");
 					for(Map videoContent:videoContents){
-						Map videoRenderer = (Map)videoContent.get("videoRenderer");
-						String videoId = (String)videoRenderer.get("videoId");
-						next.add(datumGenerator.generateYoutubePlay(videoId, page.getUrl()));
-						count++;
+						System.out.println(videoContent);
+						if(videoContent.containsKey("videoRenderer")) {
+							Map videoRenderer = (Map)videoContent.get("videoRenderer");
+							String videoId = (String)videoRenderer.get("videoId");
+							next.add(datumGenerator.generateYoutubePlay(videoId, page.getUrl()));
+							count++;
+						}else if(videoContent.containsKey("playlistRenderer")){
+							Map playlistRenderer = (Map)videoContent.get("playlistRenderer");
+							List<Map> videos = (List<Map>)playlistRenderer.get("videos");
+							for(Map video:videos){
+								Map childVideoRenderer = (Map)video.get("childVideoRenderer");
+								String videoId = (String)childVideoRenderer.get("videoId");
+								next.add(datumGenerator.generateYoutubePlay(videoId, page.getUrl()));
+								count++;
+							}
+						}
 					}
 				}
 			}

@@ -6,8 +6,10 @@ import org.crawler.entity.FbFriendsListParam;
 import org.springframework.stereotype.Component;
 import cn.edu.hfut.dmic.webcollector.model.CrawlDatum;
 
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
+import java.net.URLEncoder;
 
 @Component
 public class DatumGenerator {
@@ -58,6 +60,11 @@ public class DatumGenerator {
 	}
 
 	public CrawlDatum generateYoutubeList(String keyword) {
+		try {
+			keyword = URLEncoder.encode(keyword, "utf-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
 		return new CrawlDatum(String.format(DatumConstants.YOUTUBE_SEARCH_URL, keyword))
 				.meta(ProcessorType.PROCESSOR_TYPE, ProcessorType.PROCESSOR_TYPE_YOUTUBE_LIST);
 	}

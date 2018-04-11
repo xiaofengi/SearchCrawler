@@ -50,11 +50,10 @@ public class DownloadUtil {
                 // 读取到的数据长度
                 int len;
                 // 输出的文件流
-
                 File file2=new File(file.getParent());
                 file2.mkdirs();
                 if(file.isDirectory()){
-
+                    throw new Exception("文件名不正确");
                 }else{
                     file.createNewFile();//创建文件
                 }
@@ -73,10 +72,11 @@ public class DownloadUtil {
                     ret = true;
                 }
             }
-        } catch (IOException e) {
+        } catch (Exception e) {
             file.delete();
             ret = false;
-            System.out.println("[VideoUtil:download]:\n" + " VIDEO URL：" + urlString + " \n NEW FILENAME:" + filename + " DOWNLOAD FAILED!! ");
+            e.printStackTrace();
+            //System.out.println("[VideoUtil:download]:\n" + " VIDEO URL：" + urlString + " \n NEW FILENAME:" + filename + " DOWNLOAD FAILED!! ");
         }finally {
         }
         return ret;
