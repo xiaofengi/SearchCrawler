@@ -1,5 +1,7 @@
 package org.crawler.crawler;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -47,24 +49,38 @@ public class SeedGenerator implements CrawlerBeginListener{
 	
 	public void addSeed(Crawler crawler) {
 		switch (crawlerType) {
-		case CrawlerType.KEYWORD:
-			generateKeyword(crawler);
-			break;
-		case CrawlerType.PLAY_PAGE:
-			generatePlayPage(crawler);
-			break;
-		case CrawlerType.KU6_PLAY_PAGE:
-			generateKu6PlayPage(crawler);
-			break;
-		case CrawlerType.YOUTUBE_SEARCH:
-			generateYoutubeList(crawler);
-			break;
+			case CrawlerType.KEYWORD:
+				generateKeyword(crawler);
+				break;
+			case CrawlerType.PLAY_PAGE:
+				generatePlayPage(crawler);
+				break;
+			case CrawlerType.KU6_PLAY_PAGE:
+				generateKu6PlayPage(crawler);
+				break;
+			case CrawlerType.YOUTUBE_SEARCH:
+				generateYoutubeList(crawler);
+				break;
+			case CrawlerType.FACEBOOK_SEARCH:
+				generateFbSearch(crawler);
+				break;
 			case CrawlerType.FACEBOOK_FRIENDS_LIST:
-			generateFbFriendsList(crawler);
-			break;
+				generateFbFriendsList(crawler);
+				break;
 		default:
 			break;
 		}
+	}
+
+	private void generateFbSearch(Crawler crawler) {
+		String testUrl = null;
+		/*try {
+			testUrl = String.format(DatumConstants.FACEBOOK_PEOPLE_SEARCH__MOBILE, URLEncoder.encode("陈", "utf-8"), 3);
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}*/
+		testUrl = "https://m.facebook.com/search/people/?q=%E9%99%88&source=filter&isTrending=0&tsid=0.11954887113110768&cursor=AbrY6z7fbogAYJc-Cvyeqcaq-11jbVNbN6gRKyzAdT2RnfNUV2FR46pl9UHgnZ-AeJhQJpdfgEGbP69sGTbX-IwwIzF6AgkIUXkSZDjpO2x2yBeMvwNkLLepsNTO_UxeQ1pWF370H9hCfV6zBVV5taWWrTOwz-0FUhVqDRMQgfEme4pOf_3B_OWYCJz8bBmns2N7_UHMT-PeqraRWEE95jHNQuAqcarsJ-EjL-CmZZKEjzoodYtEWHBJ4W_umwrDXXaC_LmDgVI7orhsFSf8wcEkxPxMW2GvSXr1ruBjO2x7eo_ii2vr7XiL0qoTvDhhj6eEFUR3uuBoeDZIoIUhH-61cRnfroRmXU6DgH6D_HZowDiTwsgLzef0kGr6sBUFtLXIJ7eLVekJe7Z-ng8LKrJB&pn=9&usid=1f9aec9195805a100579f16bd9d1d23f";
+		crawler.addSeed(datumGenerator.generateFbSearch(testUrl));
 	}
 
 	private void generateFbFriendsList(Crawler crawler) {

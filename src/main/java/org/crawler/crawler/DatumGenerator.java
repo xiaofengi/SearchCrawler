@@ -100,4 +100,9 @@ public class DatumGenerator {
 				.meta(ProcessorType.PROCESSOR_TYPE, ProcessorType.PROCESSOR_TYPE_FACEBOOK_FRIENDS_LIST)
 				.meta("fbFriendLsParam", param.toString());
     }
+
+	public CrawlDatum generateFbSearch(String url) {
+		return new CrawlDatum(url)
+				.meta(ProcessorType.PROCESSOR_TYPE, ProcessorType.PROCESSOR_TYPE_FACEBOOK_SEARCH);
+	}
 }

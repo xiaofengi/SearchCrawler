@@ -31,7 +31,7 @@ public class HduStarter {
 		properties.setProperty("https.proxyPort", "1080");
 		//程序入口
 		ApplicationContext applicationContext = new AnnotationConfigApplicationContext(HduStarter.class);
-		HduCrawler baiduCrawler = applicationContext.getBean(HduCrawler.class);
-		baiduCrawler.start();
+		HduCrawler hduCrawler = applicationContext.getBean(HduCrawler.class);
+		hduCrawler.start();
 	}
 }
