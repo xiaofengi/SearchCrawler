@@ -70,8 +70,8 @@ public class HduCrawler extends BreadthCrawler implements ApplicationContextAwar
 	}
 	
 	public void start() {
+		long startTime = System.currentTimeMillis();
 		seedGenerator.addSeed(this);
-		
 		this.setRequester(hduRequester);
 		logger.info("crawler start");
 		notifyBeginCrawler();
@@ -94,6 +94,7 @@ public class HduCrawler extends BreadthCrawler implements ApplicationContextAwar
 		logger.info("request end");
         notifyEndCrawler();
         logger.info("crawler end" );
+		System.out.println("爬取总时间:" + (System.currentTimeMillis()-startTime)/1000 + "秒");
 	}
 	
 	private void notifyBeginCrawler() {
