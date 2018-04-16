@@ -19,17 +19,11 @@ import cn.edu.hfut.dmic.webcollector.net.Requester;
 
 @Component
 public class HduRequester implements Requester, CrawlerBeginListener, CrawlerEndListener{
-	private static final Logger logger = LoggerFactory.getLogger(HduRequester.class);
+	//private static final Logger logger = LoggerFactory.getLogger(HduRequester.class);
 	private static final ExecutorService exec = Executors.newFixedThreadPool(1);
-	private String detailCookie;
-	private boolean flag = true;
 	
-	@Value("${crawler.machine}")
-	private Integer machine;
 	@Value("${crawler.proxy.enable}")
 	private boolean proxyEnable;
-	@Value("${crawler.requestDetail}")
-	private boolean requestDetail;
 	
 	@Override
 	public HttpResponse getResponse(CrawlDatum crawlDatum) throws Exception {
@@ -101,20 +95,11 @@ public class HduRequester implements Requester, CrawlerBeginListener, CrawlerEnd
 
 	@Override
 	public void crawlerBegin() {
-		if(requestDetail) {
-			exec.execute(new Runnable() {
-				@Override
-				public void run() {
-				}
-			});
-			exec.shutdown();
-		}
 	}
 
 
 	@Override
 	public void crawlerEnd() {
-		this.flag = false;
 	}
 	
 }

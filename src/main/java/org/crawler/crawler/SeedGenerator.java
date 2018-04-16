@@ -103,8 +103,6 @@ public class SeedGenerator implements CrawlerBeginListener{
 
 	@Override
 	public void crawlerBegin() {
-		// TODO Auto-generated method stub
-		
 	}
 
 }
