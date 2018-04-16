@@ -1,4 +1,4 @@
-package org.crawler.processor.baidu;
+package org.crawler.processor.baidu.video;
 
 import org.crawler.constants.DatumConstants;
 import org.crawler.main.HduStarter;

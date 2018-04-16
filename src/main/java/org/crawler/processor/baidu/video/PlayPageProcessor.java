@@ -1,4 +1,4 @@
-package org.crawler.processor.baidu;
+package org.crawler.processor.baidu.video;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
@@ -22,9 +22,9 @@ import cn.edu.hfut.dmic.webcollector.model.CrawlDatums;
 import cn.edu.hfut.dmic.webcollector.model.Page;
 
 @Component
-public class BaiduPlayProcessor implements Processor{
+public class PlayPageProcessor implements Processor{
 	
-	private static Logger logger = LoggerFactory.getLogger(BaiduPlayProcessor.class); 
+	private static Logger logger = LoggerFactory.getLogger(PlayPageProcessor.class); 
 	
 	@Resource
 	private DatumGenerator datumGenerator;

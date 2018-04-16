@@ -8,49 +8,31 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
 import org.crawler.constants.CrawlerType;
 import org.crawler.constants.DatumConstants;
 import org.crawler.entity.FbFriendsListParam;
 import org.crawler.listener.CrawlerBeginListener;
-import org.crawler.mysql.mapper.KeywordMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-
-import com.google.common.base.Splitter;
-
 import cn.edu.hfut.dmic.webcollector.crawler.Crawler;
-import cn.edu.hfut.dmic.webcollector.model.CrawlDatum;
 
 @Component
 public class SeedGenerator implements CrawlerBeginListener{
-	@Autowired
-	private KeywordMapper keywordMapper;
 	
 	@Value("${crawler.seed.type}")
 	private String crawlerType;
-	@Value("${crawler.seed.goodsIds}")
-	private String goodsIds;
-	@Value("${crawler.hqt.token:12574478}")
-	private String hqtToken;
-	@Value("${crawler.machine}")
-	private Integer machine;
-	
-	@Value("${crawler.beginType}")
-	private String beginType;
-	
-	public static Map<Long,Long> rootCatMap;
-	private SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHH");
-	private SimpleDateFormat sdf1 = new SimpleDateFormat("yyyyMMddHHmm");
 
 	@Autowired
 	private DatumGenerator datumGenerator;
 	
 	public void addSeed(Crawler crawler) {
 		switch (crawlerType) {
-			case CrawlerType.KEYWORD:
-				generateKeyword(crawler);
+			case CrawlerType.BAIDU_SEARCH:
+				generateBaiduSearch(crawler);
+				break;
+			case CrawlerType.BAIDU_VIDEO_SEARCH:
+				generateBaiduVideoSearch(crawler);
 				break;
 			case CrawlerType.PLAY_PAGE:
 				generatePlayPage(crawler);
@@ -70,6 +52,14 @@ public class SeedGenerator implements CrawlerBeginListener{
 		default:
 			break;
 		}
+	}
+
+	/**
+	 * 添加百度搜索列表种子
+	 * @param crawler
+	 */
+	private void generateBaiduSearch(Crawler crawler) {	
+		crawler.addSeed(datumGenerator.generateBaiduSearchList("人工智能", 0));
 	}
 
 	private void generateFbSearch(Crawler crawler) {
@@ -102,7 +92,7 @@ public class SeedGenerator implements CrawlerBeginListener{
 		crawler.addSeed(datumGenerator.generateKu6PlayPage(testUrl));
 	}
 
-	private void generateKeyword(Crawler crawler) {
+	private void generateBaiduVideoSearch(Crawler crawler) {
 		crawler.addSeed(datumGenerator.generateVideoList("人工智能", 0, DatumConstants.SC_CCTV));
 	}
 	

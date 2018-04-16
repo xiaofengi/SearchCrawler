@@ -6,9 +6,10 @@ import java.util.Map;
 import org.crawler.constants.ProcessorType;
 import org.crawler.exceptions.NoPageProcessorException;
 import org.crawler.processor.Processor;
-import org.crawler.processor.baidu.BaiduPlayProcessor;
+import org.crawler.processor.baidu.video.PlayPageProcessor;
 import org.crawler.processor.baidu.BaiduSearchProcessor;
-import org.crawler.processor.baidu.Ku6PlayProcessor;
+import org.crawler.processor.baidu.video.BaiduVideoSearchProcessor;
+import org.crawler.processor.baidu.video.Ku6PlayProcessor;
 import org.crawler.processor.facebook.FbFriendsListProcessor;
 import org.crawler.processor.facebook.FbSearchProcessor;
 import org.crawler.processor.youtube.YoutubeListProcessor;
@@ -40,7 +41,8 @@ public class ProcessorManager implements ApplicationContextAware{
 	@Override
 	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
 		processors.put(ProcessorType.PROCESSOR_TYPE_BAIDU_SEARCH, applicationContext.getBean(BaiduSearchProcessor.class));
-		processors.put(ProcessorType.PROCESSOR_TYPE_BAIDU_PLAY, applicationContext.getBean(BaiduPlayProcessor.class));
+		processors.put(ProcessorType.PROCESSOR_TYPE_BAIDU_VIDEO_SEARCH, applicationContext.getBean(BaiduVideoSearchProcessor.class));
+		processors.put(ProcessorType.PROCESSOR_TYPE_PLAY_PAGE, applicationContext.getBean(PlayPageProcessor.class));
 		processors.put(ProcessorType.PROCESSOR_TYPE_KU6_PLAY, applicationContext.getBean(Ku6PlayProcessor.class));
 		processors.put(ProcessorType.PROCESSOR_TYPE_YOUTUBE_LIST, applicationContext.getBean(YoutubeListProcessor.class));
 		processors.put(ProcessorType.PROCESSOR_TYPE_YOUTUBE_PLAY, applicationContext.getBean(YoutubePlayProcessor.class));

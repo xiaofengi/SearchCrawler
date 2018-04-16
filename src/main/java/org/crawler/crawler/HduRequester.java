@@ -52,13 +52,13 @@ public class HduRequester implements Requester, CrawlerBeginListener, CrawlerEnd
 	private void setHeader(CrawlDatum crawlDatum, HttpRequest request) {
 		request.setHeader("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.140 Safari/537.36");
 		switch (crawlDatum.meta(ProcessorType.PROCESSOR_TYPE)) {
-			case ProcessorType.PROCESSOR_TYPE_BAIDU_SEARCH:
+			case ProcessorType.PROCESSOR_TYPE_BAIDU_VIDEO_SEARCH:
 				//request.setHeader("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.140 Safari/537.36");
 				request.setHeader("Host", "v.baidu.com");
 				request.setHeader("Referer", "http://v.baidu.com/v");
 				request.setCookie("BIDUPSID=165A3B8D1F93219D14C0B4A8138AEF6A; PSTM=1503732400; __cfduid=db0db3f162e9aee15f3eb36abaa675d1f1508568007; BAIDUID=17956543C27BB1FA4E9D7A458BC3F00C:FG=1; MCITY=-%3A; d_ad_beforeplay_today_num=6; H_PS_PSSID=1460_19033_21122; BDORZ=FFFB88E999055A3F8A630C64834BD6D0; BDRCVFR[X7WRLt7HYof]=mk3SLVN4HKm; PSINO=5; bdv_right_ad_poster=1; BUBBLESDEl=1");
 				break;
-			case ProcessorType.PROCESSOR_TYPE_BAIDU_PLAY:
+			case ProcessorType.PROCESSOR_TYPE_PLAY_PAGE:
 				//request.setHeader("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.140 Safari/537.36");
 				if(crawlDatum.meta("referer") != null) {
 					request.setHeader("referer", crawlDatum.meta("referer"));

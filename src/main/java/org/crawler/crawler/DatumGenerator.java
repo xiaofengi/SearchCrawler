@@ -15,10 +15,17 @@ import java.net.URLEncoder;
 public class DatumGenerator {
 	//private static final Logger logger = LoggerFactory.getLogger(DatumGenerator.class);
 	
-	public CrawlDatum generateKeyword(String keyword) {
-		return new CrawlDatum(String.format(DatumConstants.BAIDU_SEARCH_URL, keyword))
+	/**
+	 * 生成百度搜索列表
+	 * @param keyword 搜索关键字
+	 * @param pn 页面数(0,10,20,30...)
+	 * @return
+	 */
+	public CrawlDatum generateBaiduSearchList(String keyword, int pn) {
+		return new CrawlDatum(String.format(DatumConstants.BAIDU_SEARCH_URL, keyword, pn))
 				.meta(ProcessorType.PROCESSOR_TYPE, ProcessorType.PROCESSOR_TYPE_BAIDU_SEARCH)
-				.meta("pn", "0");
+				.meta(keyword, keyword)
+				.meta("pn", String.valueOf(pn));
 	}
 	
 	/**
@@ -29,36 +36,63 @@ public class DatumGenerator {
 	 * @return
 	 */
 	public CrawlDatum generateVideoList(String keyword, int pn, int sc) {
-		return new CrawlDatum(String.format(DatumConstants.BAIDU_SEARCH_URL, keyword, pn, sc))
-				.meta(ProcessorType.PROCESSOR_TYPE, ProcessorType.PROCESSOR_TYPE_BAIDU_SEARCH)
+		return new CrawlDatum(String.format(DatumConstants.BAIDU_VIDEO_SEARCH_URL, keyword, pn, sc))
+				.meta(ProcessorType.PROCESSOR_TYPE, ProcessorType.PROCESSOR_TYPE_BAIDU_VIDEO_SEARCH)
 				.meta("keyword", keyword)
 				.meta("pn", String.valueOf(pn))
 				.meta("sc", String.valueOf(sc));
 	}
 
-	public CrawlDatum generatePlayPage(String url) {
-		return new CrawlDatum(url)
-				.meta(ProcessorType.PROCESSOR_TYPE, ProcessorType.PROCESSOR_TYPE_BAIDU_PLAY);
+	/**
+	 * 视频播放页面
+	 * @param url 视频播放页面url，不是视频地址url
+	 * @return
+	 */
+	public CrawlDatum generatePlayPage(String playPageUrl) {
+		return new CrawlDatum(playPageUrl)
+				.meta(ProcessorType.PROCESSOR_TYPE, ProcessorType.PROCESSOR_TYPE_PLAY_PAGE);
 	}
 
-	public CrawlDatum generateRedirectPlayPage(String redirectUrl, String url) {
+	/**
+	 * 百度视频重定向页面
+	 * @param redirectUrl 重定向中间url
+	 * @param referer 引用页
+	 * @return
+	 */
+	public CrawlDatum generateRedirectPlayPage(String redirectUrl, String referer) {
 		return new CrawlDatum(redirectUrl)
-				.meta(ProcessorType.PROCESSOR_TYPE, ProcessorType.PROCESSOR_TYPE_BAIDU_PLAY)
-				.meta("referer", url);
+				.meta(ProcessorType.PROCESSOR_TYPE, ProcessorType.PROCESSOR_TYPE_PLAY_PAGE)
+				.meta("referer", referer);
 	}
 
+	/**
+	 * cctv视频地址接口
+	 * @param videoId 视频id
+	 * @param referer 引用页
+	 * @return
+	 */
 	public CrawlDatum generateCCTVVideo(String videoId, String referer) {
 		return new CrawlDatum(String.format(DatumConstants.CCTV_VIDEO_INTERFACE, videoId))
-				.meta(ProcessorType.PROCESSOR_TYPE, ProcessorType.PROCESSOR_TYPE_BAIDU_PLAY)
+				.meta(ProcessorType.PROCESSOR_TYPE, ProcessorType.PROCESSOR_TYPE_PLAY_PAGE)
 				.meta("referer", referer)
 				.meta("videoId", videoId);
 	}
 
-	public CrawlDatum generateKu6PlayPage(String testUrl) {
-		return new CrawlDatum(testUrl)
+	/**
+	 * 酷6视频播放页面
+	 * @param playPageUrl 酷6视频播放地址
+	 * @return
+	 */
+	public CrawlDatum generateKu6PlayPage(String playPageUrl) {
+		return new CrawlDatum(playPageUrl)
 				.meta(ProcessorType.PROCESSOR_TYPE, ProcessorType.PROCESSOR_TYPE_KU6_PLAY);
 	}
 
+	/**
+	 * youtube视频列表
+	 * @param keyword 搜索关键字
+	 * @return
+	 */
 	public CrawlDatum generateYoutubeList(String keyword) {
 		try {
 			keyword = URLEncoder.encode(keyword, "utf-8");
@@ -69,6 +103,12 @@ public class DatumGenerator {
 				.meta(ProcessorType.PROCESSOR_TYPE, ProcessorType.PROCESSOR_TYPE_YOUTUBE_LIST);
 	}
 
+	/**
+	 * youtube播放页面
+	 * @param videoId 视频id
+	 * @param referer 引用页
+	 * @return
+	 */
     public CrawlDatum generateYoutubePlay(String videoId, String referer) {
 		return new CrawlDatum(String.format(DatumConstants.YOUTUBE_PLAY_URL, videoId))
 				.meta(ProcessorType.PROCESSOR_TYPE, ProcessorType.PROCESSOR_TYPE_YOUTUBE_PLAY)
@@ -76,6 +116,12 @@ public class DatumGenerator {
 				.meta("videoId", videoId);
     }
 
+    /**
+     * facebook好友列表
+     * @param url 
+     * @param fbFriendsListParam
+     * @return
+     */
     public CrawlDatum generateFbFriendsList(String url, FbFriendsListParam fbFriendsListParam) {
 		StringBuilder param = new StringBuilder();
 		boolean first=true;
@@ -101,8 +147,14 @@ public class DatumGenerator {
 				.meta("fbFriendLsParam", param.toString());
     }
 
+    /**
+     * facebook用户搜索列表
+     * @param url
+     * @return
+     */
 	public CrawlDatum generateFbSearch(String url) {
 		return new CrawlDatum(url)
 				.meta(ProcessorType.PROCESSOR_TYPE, ProcessorType.PROCESSOR_TYPE_FACEBOOK_SEARCH);
 	}
+
 }
