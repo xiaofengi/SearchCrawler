@@ -6,6 +6,7 @@ import java.util.Map;
 import org.crawler.constants.ProcessorType;
 import org.crawler.exceptions.NoPageProcessorException;
 import org.crawler.processor.Processor;
+import org.crawler.processor.baidu.BaiduSearchRsProcessor;
 import org.crawler.processor.baidu.video.PlayPageProcessor;
 import org.crawler.processor.baidu.BaiduSearchProcessor;
 import org.crawler.processor.baidu.video.BaiduVideoSearchProcessor;
@@ -41,6 +42,7 @@ public class ProcessorManager implements ApplicationContextAware{
 	@Override
 	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
 		processors.put(ProcessorType.PROCESSOR_TYPE_BAIDU_SEARCH, applicationContext.getBean(BaiduSearchProcessor.class));
+		processors.put(ProcessorType.PROCESSOR_TYPE_BAIDU_SEARCH_RS, applicationContext.getBean(BaiduSearchRsProcessor.class));
 		processors.put(ProcessorType.PROCESSOR_TYPE_BAIDU_VIDEO_SEARCH, applicationContext.getBean(BaiduVideoSearchProcessor.class));
 		processors.put(ProcessorType.PROCESSOR_TYPE_PLAY_PAGE, applicationContext.getBean(PlayPageProcessor.class));
 		processors.put(ProcessorType.PROCESSOR_TYPE_KU6_PLAY, applicationContext.getBean(Ku6PlayProcessor.class));

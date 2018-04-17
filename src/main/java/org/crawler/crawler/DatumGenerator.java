@@ -27,6 +27,16 @@ public class DatumGenerator {
 				.meta(keyword, keyword)
 				.meta("pn", String.valueOf(pn));
 	}
+
+	/**
+	 * 百度搜索结果链接
+	 * @param href 链接
+	 * @return
+	 */
+	public CrawlDatum generateBaiduSearchRs(String href) {
+		return new CrawlDatum(href)
+				.meta(ProcessorType.PROCESSOR_TYPE, ProcessorType.PROCESSOR_TYPE_BAIDU_SEARCH_RS);
+	}
 	
 	/**
 	 * 生成百度视频搜索列表
