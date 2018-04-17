@@ -22,7 +22,7 @@ import com.alibaba.druid.pool.DruidDataSource;
 @MapperScan("org.crawler.mysql.mapper")
 public class DataSourceConfig {
 	private static final String configLocation = "classpath:mybatis-config.xml";
-	private static final String mapperLocations = "classpath:mybatis/*.xml";
+	private static final String mapperLocations = "classpath:mybatis/**/*.xml";
 	
 	@Value("${jdbc.url}")
 	private String url;

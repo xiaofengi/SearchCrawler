@@ -24,18 +24,20 @@ public class DatumGenerator {
 	public CrawlDatum generateBaiduSearchList(String keyword, int pn) {
 		return new CrawlDatum(String.format(DatumConstants.BAIDU_SEARCH_URL, keyword, pn))
 				.meta(ProcessorType.PROCESSOR_TYPE, ProcessorType.PROCESSOR_TYPE_BAIDU_SEARCH)
-				.meta(keyword, keyword)
+				.meta("keyword", keyword)
 				.meta("pn", String.valueOf(pn));
 	}
 
 	/**
 	 * 百度搜索结果链接
 	 * @param href 链接
+	 * @param keyword 搜索关键字
 	 * @return
 	 */
-	public CrawlDatum generateBaiduSearchRs(String href) {
+	public CrawlDatum generateBaiduSearchRs(String href, String keyword) {
 		return new CrawlDatum(href)
-				.meta(ProcessorType.PROCESSOR_TYPE, ProcessorType.PROCESSOR_TYPE_BAIDU_SEARCH_RS);
+				.meta(ProcessorType.PROCESSOR_TYPE, ProcessorType.PROCESSOR_TYPE_BAIDU_SEARCH_RS)
+				.meta("keyword", keyword);
 	}
 	
 	/**
