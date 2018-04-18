@@ -55,8 +55,7 @@ public class Ku6PlayProcessor implements Processor{
 				HduStarter.ku6Size.getAndIncrement();
 			}
 			if(page.select("video").first() != null) {
-				Element video = page.select("video").first();
-				Element source = video.getElementsByTag("source").first();
+				Element source = page.select("video source").first();
 				if(source == null) {
 					return;
 				}

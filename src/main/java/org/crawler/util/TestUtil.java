@@ -2,18 +2,22 @@ package org.crawler.util;
 
 import java.text.DecimalFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class TestUtil {
 
     public static void main(String[] args) {
-        String numContent = "百度为您找到相关结果约100,000,000个";
-        DecimalFormat df=new DecimalFormat(",###,##0"); //没有小数
-        Long num = null;
+        String timeStr = "2017-08-19 10:15:44";
+        if(timeStr.matches("^\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}.*")){
+            System.out.println(true);
+        }
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         try {
-            num = df.parse(numContent.substring(numContent.indexOf("约")+1, numContent.indexOf("个"))).longValue();
+            Date d = sdf.parse(timeStr);
+            System.out.println(sdf.format(d));
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        System.out.println(num);
     }
 }

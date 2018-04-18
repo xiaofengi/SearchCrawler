@@ -1,17 +1,16 @@
 package org.crawler.mysql.mapper;
 
+import org.apache.ibatis.annotations.Param;
+import org.crawler.mysql.mapper.base.BaseMapper;
 import org.crawler.mysql.model.UrlRelation;
 
-public interface UrlRelationMapper {
-    int deleteByPrimaryKey(Long id);
+import java.util.List;
 
-    int insert(UrlRelation record);
+public interface UrlRelationMapper extends BaseMapper<UrlRelation>{
 
-    int insertSelective(UrlRelation record);
-
-    UrlRelation selectByPrimaryKey(Long id);
-
-    int updateByPrimaryKeySelective(UrlRelation record);
-
-    int updateByPrimaryKey(UrlRelation record);
+    /**
+     * 批量插入url关系
+     * @param urlRelationLs
+     */
+    void batchInsert(@Param(value = "urlRelationLs") List<UrlRelation> urlRelationLs);
 }

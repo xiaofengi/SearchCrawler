@@ -35,14 +35,17 @@ public class BaiduSearchProcessor implements Processor{
 				//百度搜索结果url过滤
 				if(href!=null && href.startsWith("http")){
 					next.add(datumGenerator.generateBaiduSearchRs(href, page.meta("keyword")));
+				}else {
+					System.out.println("取不到链接：" + href);
 				}
 				size++;
 			}
 		}
-		//System.out.println("共搜索到" + size + "条数据");
+		System.out.println("共搜索到" + size + "条数据");
 		int pn = Integer.parseInt(page.meta("pn"));
 		if(pn == 0){
-			String numContent = page.select(".nums").first().text();
+			Element numsElement  = page.select(".nums").first();
+			String numContent = numsElement.text();
 			System.out.println(numContent);
 			DecimalFormat df = new DecimalFormat(",###,##0"); //没有小数
 			int num = 0;
@@ -51,9 +54,9 @@ public class BaiduSearchProcessor implements Processor{
 			} catch (ParseException e) {
 				e.printStackTrace();
 			}
-			/*for(int i=10; i<=num; i+=10){ //抓取下一页
+			for(int i=50; i<=750; i+=50){ //抓取下一页，目前百度只能搜索到760条结果
 				next.add(datumGenerator.generateBaiduSearchList(page.meta("keyword"), i));
-			}*/
+			}
 		}
 	}
 

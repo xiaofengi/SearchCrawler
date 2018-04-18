@@ -22,7 +22,13 @@ public class DatumGenerator {
 	 * @return
 	 */
 	public CrawlDatum generateBaiduSearchList(String keyword, int pn) {
-		return new CrawlDatum(String.format(DatumConstants.BAIDU_SEARCH_URL, keyword, pn))
+		String wd = null;
+		try {
+			wd = URLEncoder.encode("intitle:"+keyword, "utf-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		return new CrawlDatum(String.format(DatumConstants.BAIDU_SEARCH_URL, wd, pn))
 				.meta(ProcessorType.PROCESSOR_TYPE, ProcessorType.PROCESSOR_TYPE_BAIDU_SEARCH)
 				.meta("keyword", keyword)
 				.meta("pn", String.valueOf(pn));
@@ -37,7 +43,8 @@ public class DatumGenerator {
 	public CrawlDatum generateBaiduSearchRs(String href, String keyword) {
 		return new CrawlDatum(href)
 				.meta(ProcessorType.PROCESSOR_TYPE, ProcessorType.PROCESSOR_TYPE_BAIDU_SEARCH_RS)
-				.meta("keyword", keyword);
+				.meta("keyword", keyword)
+				.meta("referer", href);
 	}
 	
 	/**

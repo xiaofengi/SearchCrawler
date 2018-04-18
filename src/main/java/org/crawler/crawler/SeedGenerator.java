@@ -58,7 +58,7 @@ public class SeedGenerator implements CrawlerBeginListener{
 	 * 添加百度搜索列表种子
 	 * @param crawler
 	 */
-	private void generateBaiduSearch(Crawler crawler) {	
+	private void generateBaiduSearch(Crawler crawler) {
 		crawler.addSeed(datumGenerator.generateBaiduSearchList("人工智能", 0));
 	}
 

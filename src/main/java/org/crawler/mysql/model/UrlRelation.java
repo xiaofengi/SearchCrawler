@@ -15,6 +15,16 @@ public class UrlRelation {
 
     private Date updateTime;
 
+    public UrlRelation(){
+    }
+
+    public UrlRelation(String srcUrl, String targetUrl, Short targetUrlType, Date crawlTime) {
+        this.srcUrl = srcUrl;
+        this.targetUrl = targetUrl;
+        this.targetUrlType = targetUrlType;
+        this.crawlTime = crawlTime;
+    }
+
     public Long getId() {
         return id;
     }

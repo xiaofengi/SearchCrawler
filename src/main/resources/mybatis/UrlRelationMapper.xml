@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.crawler.mysql.mapper.UrlRelationMapper" >
+
+  <update id="batchInsert">
+    insert into
+      url_relation (src_url, target_url, target_url_type, crawl_time)
+    values
+      <foreach collection="urlRelationLs" item="item" separator=",">
+        (#{item.srcUrl,jdbcType=VARCHAR}, #{item.targetUrl,jdbcType=VARCHAR}, #{item.targetUrlType,jdbcType=SMALLINT},
+          #{item.crawlTime,jdbcType=TIMESTAMP})
+      </foreach>
+  </update>
+
+</mapper>

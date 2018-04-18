@@ -32,8 +32,8 @@ public class DatumConstants {
 	public static final String DOWNLOAD_LOC_KU6 = "E:\\Downloads\\crawler\\baidu\\ku6\\";
 	public static final String DOWNLOAD_LOC_YOUTUBE = "E:\\Downloads\\crawler\\youtube\\";
 
-	public static final String BAIDU_SEARCH_URL = "https://www.baidu.com/s?ie=utf-8&wd=%s&pn=%d";
-	public static final String BAIDU_VIDEO_SEARCH_URL = "http://v.baidu.com/v?rn=20&ie=utf-8&word=%s&pn=%d&sc=%d";//rn:每页数量  pn:页面数 sc:来源 du:时长 pd:更新时间
+	public static final String BAIDU_SEARCH_URL = "https://www.baidu.com/s?rn=50&ie=utf-8&wd=%s&pn=%d";
+	public static final String BAIDU_VIDEO_SEARCH_URL = "http://v.baidu.com/v?rn=50&ie=utf-8&word=%s&pn=%d&sc=%d";//rn:每页数量  pn:页面数 sc:来源 du:时长 pd:更新时间
 	public static final String CCTV_VIDEO_INTERFACE = "http://xiyou.cctv.com/interface/index?videoId=%s";
 	public static final String YOUTUBE_SEARCH_URL = "https://www.youtube.com/results?search_query=%s&pbj=1";
     public static final String YOUTUBE_PLAY_URL = "https://www.youtube.com/watch?v=%s";
