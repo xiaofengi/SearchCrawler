@@ -57,11 +57,11 @@ public class MonitorExecute implements CrawlerBeginListener,CrawlerEndListener{
 		mot2.start();
 	}
 	
-	public void sendErrorMsg(String ExceptionMsg){//发生异常时调用
+	public void sendErrorMsg(String exceptionMsg){//发生异常时调用
 		if(!active){
 			return; 
 		}
-		MonitorParam monitorParam = new MonitorParam(ExceptionMsg);
+		MonitorParam monitorParam = new MonitorParam(exceptionMsg);
 		MonitorThread mot = new MonitorThread(4,monitorParam);
 		mot.start();
 	}

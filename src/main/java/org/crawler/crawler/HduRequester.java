@@ -45,9 +45,11 @@ public class HduRequester implements Requester, CrawlerBeginListener, CrawlerEnd
 
 	private void setHeader(CrawlDatum crawlDatum, HttpRequest request) {
 		request.setHeader("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.140 Safari/537.36");
+		if(crawlDatum.meta("referer") != null) {
+			request.setHeader("referer", crawlDatum.meta("referer"));
+		}
 		switch (crawlDatum.meta(ProcessorType.PROCESSOR_TYPE)) {
 			case ProcessorType.PROCESSOR_TYPE_BAIDU_SEARCH_RS:
-				request.setHeader("Referer", crawlDatum.meta("referer"));
 				break;
 			case ProcessorType.PROCESSOR_TYPE_BAIDU_VIDEO_SEARCH:
 				//request.setHeader("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.140 Safari/537.36");
@@ -57,9 +59,6 @@ public class HduRequester implements Requester, CrawlerBeginListener, CrawlerEnd
 				break;
 			case ProcessorType.PROCESSOR_TYPE_PLAY_PAGE:
 				//request.setHeader("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.140 Safari/537.36");
-				if(crawlDatum.meta("referer") != null) {
-					request.setHeader("referer", crawlDatum.meta("referer"));
-				}
 				break;
 			case ProcessorType.PROCESSOR_TYPE_YOUTUBE_LIST:
 				//request.setHeader("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.140 Safari/537.36");

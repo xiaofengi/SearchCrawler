@@ -7,7 +7,7 @@
   <name>SearchCrawler</name>
   <version>0.0.1-SNAPSHOT</version>
   <url>http://maven.apache.org</url>
-  <packaging>pom</packaging>
+  <packaging>jar</packaging>
   <properties>
 	  	<jdk.version>1.8</jdk.version>
 	  	<logback.version>1.2.2</logback.version>

@@ -9,7 +9,9 @@ import java.net.URLConnection;
 import java.security.MessageDigest;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Map;
 
+import com.google.gson.Gson;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -18,10 +20,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class MonitorRequester {
 	
-	private static String server;          //服务端ip和端口号
+	private static String server;          //监控中心服务器地址
 	
 	private static String appkey;		   //每个爬虫任务分配的appkey
-	
+
 	private static int interval;           //间隔时间
 	
 	private static int dailyId = -1;	   //本次任务对应的日志id
@@ -34,13 +36,13 @@ public class MonitorRequester {
     } 
 	
 	@Value("${crawler.monitor.appkey}")
-	public void setAppkey(String appkey0){
-		appkey = appkey0;
+	public void setAppkey(String appkey){
+		this.appkey = appkey;
 	}
 	
 	@Value("${crawler.monitor.interval}")
-	public void setInterval(int interval0){
-		interval = interval0;
+	public void setInterval(int interval){
+		interval = interval;
 	}
 	
 	/**
@@ -54,9 +56,8 @@ public class MonitorRequester {
 		String saveCount = monitorParam.getSaveCount()+"";
 		String ram = monitorParam.getRam();
 		String cpu = monitorParam.getCpu();
-		//得到当前时间
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		String timestamp = sdf.format(new Date());
+		//得到当前时间戳
+		Long timestamp = new Date().getTime();
 		//生成密钥
 		String sign = appkey+timestamp+crawlerCount+saveCount+ram+cpu+interval+appkey;
 		String secret = MD5(sign);
@@ -72,19 +73,18 @@ public class MonitorRequester {
 	 * @return
 	 */
 	private static String getCrawlerParamString(MonitorParam monitorParam){
-		String crawlerCount = monitorParam.getCrawlerCount()+"";
-		String saveCount = monitorParam.getSaveCount()+"";
+		long crawlerCount = monitorParam.getCrawlerCount();
+		long saveCount = monitorParam.getSaveCount();
 		String ram = monitorParam.getRam();
 		String cpu = monitorParam.getCpu();
-		//得到当前时间
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		String timestamp = sdf.format(new Date());
+		//得到当前时间戳
+		Long timestamp = new Date().getTime();
 		//生成密钥
 		String sign = appkey+timestamp+crawlerCount+saveCount+ram+cpu+dailyId+appkey;
 		String secret = MD5(sign);
 		//拼接参数
 		String param = "appkey="+appkey+"&secret="+secret+"&timestamp="+timestamp+
-				"&cpu="+cpu+"&ram="+ram+"&crawlerCount="+crawlerCount+"&saveCount="+saveCount+"&dailyId="+dailyId;;
+				"&cpu="+cpu+"&ram="+ram+"&crawlerCount="+crawlerCount+"&saveCount="+saveCount+"&dailyId="+dailyId;
 		return param;
 	}
 	
@@ -96,9 +96,8 @@ public class MonitorRequester {
 	private static String getDailyParamString(MonitorParam monitorParam){
 		String totalCount = monitorParam.getTotalCount()+"";
 		String totalSold = monitorParam.getTotalSold()+"";
-		//得到当前时间
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		String timestamp = sdf.format(new Date());
+		//得到当前时间戳
+		Long timestamp = new Date().getTime();
 		//生成密钥
 		String sign = appkey + timestamp + totalCount + totalSold + dailyId + appkey;
 		String secret = MD5(sign);
@@ -115,9 +114,8 @@ public class MonitorRequester {
 	 */
 	private static String getExceptionParamString(MonitorParam monitorParam){
 		String exception = monitorParam.getException();
-		// 得到当前时间
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		String timestamp = sdf.format(new Date());
+		//得到当前时间戳
+		Long timestamp = new Date().getTime();
 		// 生成密钥
 		String sign = appkey + timestamp + exception + appkey;
 		String secret = MD5(sign);
@@ -129,11 +127,14 @@ public class MonitorRequester {
 	
 	//监控开始
 	public static String start(MonitorParam monitorParam){
-		String url = server+"/sys/start";
+		String url = server+"/crawler/start";
 		String param = getStartParamString(monitorParam);
 		String result = sendPost(param,url);
+		System.out.println(result);
 		try { 
-			dailyId = Integer.parseInt(result.trim());
+			//dailyId = Integer.parseInt(result.trim());
+			Map retMap = new Gson().fromJson(result, Map.class);
+			dailyId = Integer.parseInt(((Map)retMap.get("data")).get("dailyId").toString());
 		} catch (NumberFormatException e) {
 			dailyId = -1;
 			result = -1+"";
@@ -144,19 +145,19 @@ public class MonitorRequester {
 	
 	//发送爬虫状态信息
 	public static String sendMessage(MonitorParam monitorParam){
-		String url =  server+"/sys/sendMessage";
+		String url = server+"/crawler/sendMessage";
 		String param = getCrawlerParamString(monitorParam);
 		return sendPost(param,url);
 	}
 	//发送日报信息
 	public static String sendDaily(MonitorParam monitorParam){
-		String url = server+"/sys/sendDaily";
+		String url = server+"/crawler/sendDaily";
 		String param = getDailyParamString(monitorParam);
 		return sendPost(param,url);
 	}
 	//发生错误时给监控中心发出警告
 	public static String sendException(MonitorParam monitorParam){
-		String url = server+"/sys/sendException";
+		String url = server+"/crawler/sendException";
 		String param = getExceptionParamString(monitorParam);
 		return sendPost(param,url);
 	}

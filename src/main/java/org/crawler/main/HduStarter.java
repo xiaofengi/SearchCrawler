@@ -25,11 +25,11 @@ public class HduStarter {
 	@SuppressWarnings("resource")
 	public static void main(String[] args) throws InterruptedException {
 		//设置系统代理
-		Properties properties = System.getProperties();
+		/*Properties properties = System.getProperties();
 		properties.setProperty("http.proxyHost", "127.0.0.1");
 		properties.setProperty("http.proxyPort", "1080");
 		properties.setProperty("https.proxyHost", "127.0.0.1");
-		properties.setProperty("https.proxyPort", "1080");
+		properties.setProperty("https.proxyPort", "1080");*/
 		//程序入口
 		ApplicationContext applicationContext = new AnnotationConfigApplicationContext(HduStarter.class);
 		HduCrawler hduCrawler = applicationContext.getBean(HduCrawler.class);

@@ -2,7 +2,7 @@ package org.crawler.monitor;
 
 public class MonitorThread extends Thread{
 	
-	public static boolean flag ;
+	public static boolean flag ; //是否监控
 	
 	private int state = -1;        
 	 
@@ -51,7 +51,7 @@ public class MonitorThread extends Thread{
 				}
 				break;
 			case 2:
-				MonitorRequester.sendMessage(monitorParam); //结束时最后一次掉msg
+				MonitorRequester.sendMessage(monitorParam); //结束时最后一次调msg
 				break;
 			case 3:
 				try {

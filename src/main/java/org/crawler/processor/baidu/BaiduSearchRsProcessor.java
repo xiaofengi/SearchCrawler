@@ -1,8 +1,8 @@
 package org.crawler.processor.baidu;
 
 import cn.edu.hfut.dmic.webcollector.model.CrawlDatums;
+import cn.edu.hfut.dmic.webcollector.model.Links;
 import cn.edu.hfut.dmic.webcollector.model.Page;
-
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.text.ParseException;
@@ -10,8 +10,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
-import javax.annotation.Resource;
-
 import org.apache.commons.lang.StringUtils;
 import org.crawler.crawler.DatumGenerator;
 import org.crawler.main.HduStarter;
@@ -24,18 +22,19 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import javax.annotation.Resource;
 
 @Component
 public class BaiduSearchRsProcessor implements Processor{
 
 	private static final Logger logger = LoggerFactory.getLogger(BaiduSearchRsProcessor.class);
-	@Autowired
+	@Resource
 	private DatumGenerator datumGenerator;
-	@Autowired
+	@Resource
 	private WebPageDetailMapper webPageDetailMapper;
-	@Autowired
+	@Resource
 	private UrlRelationMapper urlRelationMapper;
 
     @Override
@@ -47,8 +46,9 @@ public class BaiduSearchRsProcessor implements Processor{
 		if(page.select("title").isEmpty()){
         	return;
 		}
-		//parseWebPageDetail(page);
+		parseWebPageDetail(page);
 		parseWebSource(page, next);
+		paerseHref(page, next);
     }
 
 	/**
@@ -68,7 +68,11 @@ public class BaiduSearchRsProcessor implements Processor{
 			//标题
 			webPageDetail.setTitle(title);
 			//源
-			webPageDetail.setSrc(page.getUrl());
+			if(page.meta("referer") != null){ //超链接到当前页面
+				webPageDetail.setSrc(page.meta("referer"));
+			}else { //重定向到当前页面
+				webPageDetail.setSrc(page.getUrl());
+			}
 			//创建时间
 			String createTimeStr = null;
 			if(!page.select(".time, .utime, .time").isEmpty()){
@@ -111,6 +115,9 @@ public class BaiduSearchRsProcessor implements Processor{
 			webPageDetail.setKeyword(page.meta("keyword"));
 			//内容
 			String content = null;
+			if(!page.select("article").isEmpty()){
+				content = page.select("article").first().text();
+			}
 			if(!page.select(".article_content, .topic-content, .main-content, .article-content-wrap, .sec_article").isEmpty()){
 				content = page.select(".article_content, .topic-content, .main-content, .article-content-wrap, .sec_article").first().text();
 			}
@@ -172,6 +179,7 @@ public class BaiduSearchRsProcessor implements Processor{
 		Elements imgs = page.select("img");
 		if(!imgs.isEmpty()) {
 			for (Element img : imgs) {
+				//String src = img.attr("abs:src"); 获取绝对路径，暂时不用，可能存在bug
 				String src = img.attr("src");
 				if(src==null || src.equals("") || src.contains("{")){ //js动态加载、vue的图片暂时取不到
 					continue;
@@ -252,6 +260,24 @@ public class BaiduSearchRsProcessor implements Processor{
 		//插入数据库
 		if(!urlRelationLs.isEmpty()) {
 			urlRelationMapper.batchInsert(urlRelationLs);
+		}
+	}
+
+	/**
+	 * 解析网页下面的超链接
+	 * @param page
+	 * @param next
+	 */
+	private void paerseHref(Page page, CrawlDatums next){
+		Elements as = page.select("a");
+		for (Element a : as) {
+			if (a.hasAttr("href")) {
+				String href = a.attr("abs:href");//获取超链接
+				String title = a.text();
+				if(href.startsWith("http") && title.contains(page.meta("keyword"))) { //过滤与关键字无关的超链接
+					next.add(datumGenerator.generateBaiduSearchRs(href, page.meta("keyword"), page.getResponse().getRealUrl().toString()));
+				}
+			}
 		}
 	}
 }
