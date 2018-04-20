@@ -71,7 +71,7 @@ public class HduCrawler extends BreadthCrawler implements ApplicationContextAwar
 	
 	public void start() {
 		long startTime = System.currentTimeMillis();
-		//seedGenerator.addSeed(this);
+		seedGenerator.addSeed(this);
 		this.setRequester(hduRequester);
 		logger.info("crawler start");
 		notifyBeginCrawler();

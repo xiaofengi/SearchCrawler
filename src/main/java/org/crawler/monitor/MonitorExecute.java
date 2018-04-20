@@ -36,7 +36,7 @@ public class MonitorExecute implements CrawlerBeginListener,CrawlerEndListener{
 		MonitorThread startThread = new MonitorThread(0,getMsgParam());
 		startThread.start();
 		
-		MonitorThread mot = new MonitorThread(interval);
+		MonitorThread mot = new MonitorThread(interval); //运行
 		MonitorThread.flag = true;
 		logger.info("---inspectorStart---");
 		mot.start();

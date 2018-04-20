@@ -23,7 +23,7 @@ public class MonitorThread extends Thread{
 	@Override
 	public void run() {
 		switch(state){
-			case 0:
+			case 0: //就绪
 				String result = MonitorRequester.start(monitorParam);
 				if("-1".equals(result)){
 					try {
@@ -35,7 +35,7 @@ public class MonitorThread extends Thread{
 					MonitorRequester.start(monitorParam); //发生错误再次尝试请求
 				}
 				break;
-			case 1:
+			case 1: //运行
 				while(flag){
 					try {
 						Thread.sleep(interval*60*1000);
@@ -53,7 +53,7 @@ public class MonitorThread extends Thread{
 			case 2:
 				MonitorRequester.sendMessage(monitorParam); //结束时最后一次调msg
 				break;
-			case 3:
+			case 3: //结束
 				try {
 					Thread.sleep(2000);
 				} catch (InterruptedException e) {

@@ -13,6 +13,7 @@ import java.util.List;
 import org.apache.commons.lang.StringUtils;
 import org.crawler.crawler.DatumGenerator;
 import org.crawler.main.HduStarter;
+import org.crawler.monitor.MonitorExecute;
 import org.crawler.mysql.mapper.UrlRelationMapper;
 import org.crawler.mysql.mapper.WebPageDetailMapper;
 import org.crawler.mysql.model.UrlRelation;
@@ -47,8 +48,8 @@ public class BaiduSearchRsProcessor implements Processor{
         	return;
 		}
 		parseWebPageDetail(page);
-		parseWebSource(page, next);
-		paerseHref(page, next);
+		//parseWebSource(page, next);
+		//parseHref(page, next);
     }
 
 	/**
@@ -161,6 +162,8 @@ public class BaiduSearchRsProcessor implements Processor{
 			webPageDetail.setCrawlTime(new Date());
 			webPageDetailMapper.insertSelective(webPageDetail);
 			HduStarter.baiduSearchSize.getAndIncrement();
+			MonitorExecute.counter.getAndIncrement();
+			MonitorExecute.saveCounter.getAndIncrement();
 		}
 	}
 
@@ -268,7 +271,7 @@ public class BaiduSearchRsProcessor implements Processor{
 	 * @param page
 	 * @param next
 	 */
-	private void paerseHref(Page page, CrawlDatums next){
+	private void parseHref(Page page, CrawlDatums next){
 		Elements as = page.select("a");
 		for (Element a : as) {
 			if (a.hasAttr("href")) {

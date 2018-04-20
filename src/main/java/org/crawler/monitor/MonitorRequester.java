@@ -12,6 +12,7 @@ import java.util.Date;
 import java.util.Map;
 
 import com.google.gson.Gson;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -32,7 +33,7 @@ public class MonitorRequester {
 	
 	@Value("${crawler.monitor.url}")
     public void setServer(String url) { //给静态变量赋值
-        server = url;  
+        this.server = url;
     } 
 	
 	@Value("${crawler.monitor.appkey}")
@@ -42,7 +43,7 @@ public class MonitorRequester {
 	
 	@Value("${crawler.monitor.interval}")
 	public void setInterval(int interval){
-		interval = interval;
+		this.interval = interval;
 	}
 	
 	/**
@@ -130,12 +131,12 @@ public class MonitorRequester {
 		String url = server+"/crawler/start";
 		String param = getStartParamString(monitorParam);
 		String result = sendPost(param,url);
-		System.out.println(result);
 		try { 
 			//dailyId = Integer.parseInt(result.trim());
-			Map retMap = new Gson().fromJson(result, Map.class);
+			ObjectMapper mapper = new ObjectMapper();
+			Map retMap = mapper.readValue(result, Map.class);
 			dailyId = Integer.parseInt(((Map)retMap.get("data")).get("dailyId").toString());
-		} catch (NumberFormatException e) {
+		} catch (Exception e) {
 			dailyId = -1;
 			result = -1+"";
 			logger.error("dailyId get error:",e);

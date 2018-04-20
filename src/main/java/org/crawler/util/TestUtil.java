@@ -8,7 +8,7 @@ import java.io.InputStreamReader;
 public class TestUtil {
 
     public static void main(String[] args) throws Exception {
-        String result = execCmd("java Test", null);
+        String result = execCmd("java -version", null);
         System.out.println(result);
     }
 
