@@ -29,7 +29,7 @@ public class DatumGenerator {
 			e.printStackTrace();
 		}
 		return new CrawlDatum(String.format(DatumConstants.BAIDU_SEARCH_URL, wd, pn))
-				.meta(ProcessorType.PROCESSOR_TYPE, ProcessorType.PROCESSOR_TYPE_BAIDU_SEARCH)
+				.meta(ProcessorType.PROCESSOR_TYPE, ProcessorType.BAIDU_SEARCH)
 				.meta("keyword", keyword)
 				.meta("pn", String.valueOf(pn));
 	}
@@ -42,7 +42,7 @@ public class DatumGenerator {
 	 */
 	public CrawlDatum generateBaiduSearchRs(String href, String keyword, String referer) {
 		return new CrawlDatum(href)
-				.meta(ProcessorType.PROCESSOR_TYPE, ProcessorType.PROCESSOR_TYPE_BAIDU_SEARCH_RS)
+				.meta(ProcessorType.PROCESSOR_TYPE, ProcessorType.BAIDU_SEARCH_RS)
 				.meta("keyword", keyword)
 				.meta("referer", referer);
 	}
@@ -56,7 +56,7 @@ public class DatumGenerator {
 	 */
 	public CrawlDatum generateVideoList(String keyword, int pn, int sc) {
 		return new CrawlDatum(String.format(DatumConstants.BAIDU_VIDEO_SEARCH_URL, keyword, pn, sc))
-				.meta(ProcessorType.PROCESSOR_TYPE, ProcessorType.PROCESSOR_TYPE_BAIDU_VIDEO_SEARCH)
+				.meta(ProcessorType.PROCESSOR_TYPE, ProcessorType.BAIDU_VIDEO_SEARCH)
 				.meta("keyword", keyword)
 				.meta("pn", String.valueOf(pn))
 				.meta("sc", String.valueOf(sc));
@@ -69,7 +69,7 @@ public class DatumGenerator {
 	 */
 	public CrawlDatum generatePlayPage(String playPageUrl) {
 		return new CrawlDatum(playPageUrl)
-				.meta(ProcessorType.PROCESSOR_TYPE, ProcessorType.PROCESSOR_TYPE_PLAY_PAGE);
+				.meta(ProcessorType.PROCESSOR_TYPE, ProcessorType.PLAY_PAGE);
 	}
 
 	/**
@@ -80,7 +80,7 @@ public class DatumGenerator {
 	 */
 	public CrawlDatum generateRedirectPlayPage(String redirectUrl, String referer) {
 		return new CrawlDatum(redirectUrl)
-				.meta(ProcessorType.PROCESSOR_TYPE, ProcessorType.PROCESSOR_TYPE_PLAY_PAGE)
+				.meta(ProcessorType.PROCESSOR_TYPE, ProcessorType.PLAY_PAGE)
 				.meta("referer", referer);
 	}
 
@@ -92,7 +92,7 @@ public class DatumGenerator {
 	 */
 	public CrawlDatum generateCCTVVideo(String videoId, String referer) {
 		return new CrawlDatum(String.format(DatumConstants.CCTV_VIDEO_INTERFACE, videoId))
-				.meta(ProcessorType.PROCESSOR_TYPE, ProcessorType.PROCESSOR_TYPE_PLAY_PAGE)
+				.meta(ProcessorType.PROCESSOR_TYPE, ProcessorType.PLAY_PAGE)
 				.meta("referer", referer)
 				.meta("videoId", videoId);
 	}
@@ -104,7 +104,7 @@ public class DatumGenerator {
 	 */
 	public CrawlDatum generateKu6PlayPage(String playPageUrl) {
 		return new CrawlDatum(playPageUrl)
-				.meta(ProcessorType.PROCESSOR_TYPE, ProcessorType.PROCESSOR_TYPE_KU6_PLAY);
+				.meta(ProcessorType.PROCESSOR_TYPE, ProcessorType.KU6_PLAY);
 	}
 
 	/**
@@ -119,7 +119,7 @@ public class DatumGenerator {
 			e.printStackTrace();
 		}
 		return new CrawlDatum(String.format(DatumConstants.YOUTUBE_SEARCH_URL, keyword))
-				.meta(ProcessorType.PROCESSOR_TYPE, ProcessorType.PROCESSOR_TYPE_YOUTUBE_LIST);
+				.meta(ProcessorType.PROCESSOR_TYPE, ProcessorType.YOUTUBE_LIST);
 	}
 
 	/**
@@ -130,7 +130,7 @@ public class DatumGenerator {
 	 */
     public CrawlDatum generateYoutubePlay(String videoId, String referer) {
 		return new CrawlDatum(String.format(DatumConstants.YOUTUBE_PLAY_URL, videoId))
-				.meta(ProcessorType.PROCESSOR_TYPE, ProcessorType.PROCESSOR_TYPE_YOUTUBE_PLAY)
+				.meta(ProcessorType.PROCESSOR_TYPE, ProcessorType.YOUTUBE_PLAY)
 				.meta("referer", referer)
 				.meta("videoId", videoId);
     }
@@ -162,7 +162,7 @@ public class DatumGenerator {
 			}
 		}
 		return new CrawlDatum(url)
-				.meta(ProcessorType.PROCESSOR_TYPE, ProcessorType.PROCESSOR_TYPE_FACEBOOK_FRIENDS_LIST)
+				.meta(ProcessorType.PROCESSOR_TYPE, ProcessorType.FACEBOOK_FRIENDS_LIST)
 				.meta("fbFriendLsParam", param.toString());
     }
 
@@ -173,7 +173,19 @@ public class DatumGenerator {
      */
 	public CrawlDatum generateFbSearch(String url) {
 		return new CrawlDatum(url)
-				.meta(ProcessorType.PROCESSOR_TYPE, ProcessorType.PROCESSOR_TYPE_FACEBOOK_SEARCH);
+				.meta(ProcessorType.PROCESSOR_TYPE, ProcessorType.FACEBOOK_SEARCH);
 	}
 
+	/**
+	 * 爬取码农代理ip
+	 * @param country 国家
+	 * @param page 页数
+	 * @return
+	 */
+    public CrawlDatum generateCoderbusy(String country, int pageIndex) {
+		return new CrawlDatum(String.format(DatumConstants.CODERBUSY_COUNTRY_URL, country, pageIndex))
+				.meta(ProcessorType.PROCESSOR_TYPE, ProcessorType.CODDERBUSY)
+				.meta("country", country)
+				.meta("pageIndex", String.valueOf(pageIndex));
+    }
 }

@@ -13,6 +13,7 @@ import org.crawler.processor.baidu.video.BaiduVideoSearchProcessor;
 import org.crawler.processor.baidu.video.Ku6PlayProcessor;
 import org.crawler.processor.facebook.FbFriendsListProcessor;
 import org.crawler.processor.facebook.FbSearchProcessor;
+import org.crawler.processor.proxy.CoderbusyProcessor;
 import org.crawler.processor.youtube.YoutubeListProcessor;
 import org.crawler.processor.youtube.YoutubePlayProcessor;
 import org.springframework.beans.BeansException;
@@ -41,14 +42,15 @@ public class ProcessorManager implements ApplicationContextAware{
 
 	@Override
 	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-		processors.put(ProcessorType.PROCESSOR_TYPE_BAIDU_SEARCH, applicationContext.getBean(BaiduSearchProcessor.class));
-		processors.put(ProcessorType.PROCESSOR_TYPE_BAIDU_SEARCH_RS, applicationContext.getBean(BaiduSearchRsProcessor.class));
-		processors.put(ProcessorType.PROCESSOR_TYPE_BAIDU_VIDEO_SEARCH, applicationContext.getBean(BaiduVideoSearchProcessor.class));
-		processors.put(ProcessorType.PROCESSOR_TYPE_PLAY_PAGE, applicationContext.getBean(PlayPageProcessor.class));
-		processors.put(ProcessorType.PROCESSOR_TYPE_KU6_PLAY, applicationContext.getBean(Ku6PlayProcessor.class));
-		processors.put(ProcessorType.PROCESSOR_TYPE_YOUTUBE_LIST, applicationContext.getBean(YoutubeListProcessor.class));
-		processors.put(ProcessorType.PROCESSOR_TYPE_YOUTUBE_PLAY, applicationContext.getBean(YoutubePlayProcessor.class));
-		processors.put(ProcessorType.PROCESSOR_TYPE_FACEBOOK_SEARCH, applicationContext.getBean(FbSearchProcessor.class));
-		processors.put(ProcessorType.PROCESSOR_TYPE_FACEBOOK_FRIENDS_LIST, applicationContext.getBean(FbFriendsListProcessor.class));
+		processors.put(ProcessorType.BAIDU_SEARCH, applicationContext.getBean(BaiduSearchProcessor.class));
+		processors.put(ProcessorType.BAIDU_SEARCH_RS, applicationContext.getBean(BaiduSearchRsProcessor.class));
+		processors.put(ProcessorType.BAIDU_VIDEO_SEARCH, applicationContext.getBean(BaiduVideoSearchProcessor.class));
+		processors.put(ProcessorType.PLAY_PAGE, applicationContext.getBean(PlayPageProcessor.class));
+		processors.put(ProcessorType.KU6_PLAY, applicationContext.getBean(Ku6PlayProcessor.class));
+		processors.put(ProcessorType.YOUTUBE_LIST, applicationContext.getBean(YoutubeListProcessor.class));
+		processors.put(ProcessorType.YOUTUBE_PLAY, applicationContext.getBean(YoutubePlayProcessor.class));
+		processors.put(ProcessorType.FACEBOOK_SEARCH, applicationContext.getBean(FbSearchProcessor.class));
+		processors.put(ProcessorType.FACEBOOK_FRIENDS_LIST, applicationContext.getBean(FbFriendsListProcessor.class));
+		processors.put(ProcessorType.CODDERBUSY, applicationContext.getBean(CoderbusyProcessor.class));
 	}
 }

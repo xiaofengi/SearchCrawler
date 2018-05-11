@@ -28,6 +28,9 @@ public class SeedGenerator implements CrawlerBeginListener{
 	
 	public void addSeed(Crawler crawler) {
 		switch (crawlerType) {
+			case CrawlerType.PROXY_CODERBUSY:
+				generateCoderbusy(crawler);
+				break;
 			case CrawlerType.BAIDU_SEARCH:
 				generateBaiduSearch(crawler);
 				break;
@@ -52,6 +55,27 @@ public class SeedGenerator implements CrawlerBeginListener{
 		default:
 			break;
 		}
+	}
+
+	private void generateCoderbusy(Crawler crawler) {
+		//巴西
+		crawler.addSeed(datumGenerator.generateCoderbusy("br", 1));
+		//美国
+		crawler.addSeed(datumGenerator.generateCoderbusy("us", 1));
+		//印度尼西亚
+		crawler.addSeed(datumGenerator.generateCoderbusy("id", 1));
+		//俄罗斯
+		crawler.addSeed(datumGenerator.generateCoderbusy("ru" ,1));
+		//法国
+		crawler.addSeed(datumGenerator.generateCoderbusy("fr", 1));
+		//印度
+		crawler.addSeed(datumGenerator.generateCoderbusy("in", 1));
+		//香港
+		crawler.addSeed(datumGenerator.generateCoderbusy("hk", 1));
+		//泰国
+		crawler.addSeed(datumGenerator.generateCoderbusy("th", 1));
+		//孟加拉
+		crawler.addSeed(datumGenerator.generateCoderbusy("bd", 1));
 	}
 
 	/**
