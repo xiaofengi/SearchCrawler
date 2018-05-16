@@ -30,20 +30,9 @@ public class CoderbusyProcessor implements Processor{
     public void process(Page page, CrawlDatums next) {
         String country = page.meta("country");
         int pageIndex = Integer.parseInt(page.meta("pageIndex"));
-        if(pageIndex == 1){
-            String totalNumText = page.select(".pagination li:last-child").first().text();
-            logger.info("搜索到" + country + "的代理ip" + totalNumText);
-            int totalNum = Integer.parseInt(totalNumText.replace("共","").replace("条","").trim());
-            if(totalNum > 50) {
-                for (int i = 2; totalNum>50; i++) {
-                    totalNum -= 50;
-                    next.add(datumGenerator.generateCoderbusy(country, i));
-                }
-            }
-        }
         Elements trs = page.select("tbody tr");
+        List<ProxyEntity> proxyEntityList = new ArrayList<>();
         if(!trs.isEmpty()){
-            List<ProxyEntity> proxyEntityList = new ArrayList<>();
             for (Element tr : trs){
                 Elements tds = tr.getElementsByTag("td");
                 String host = tds.get(0).text();
@@ -60,6 +49,24 @@ public class CoderbusyProcessor implements Processor{
                 proxyEntityMapper.batchInsert(proxyEntityList);
                 logger.info("插入" + country + "的代理ip共" + proxyEntityList.size() + "条");
             }
+        }
+        if(pageIndex == 1){
+            int resultNum = 0;
+            Elements numElement = page.select(".pagination li:last-child");
+            if(!numElement.isEmpty()){
+                String totalNumText = numElement.first().text();
+                int totalNum = Integer.parseInt(totalNumText.replace("共","").replace("条","").trim());
+                resultNum = totalNum;
+                if(totalNum > 50) {
+                    for (int i = 2; totalNum>50; i++) {
+                        totalNum -= 50;
+                        next.add(datumGenerator.generateCoderbusy(country, i));
+                    }
+                }
+            }else {
+                resultNum = proxyEntityList.size();
+            }
+            logger.info("搜索到" + country + "的代理ip共" + resultNum + "条");
         }
     }
 

@@ -76,6 +76,16 @@ public class SeedGenerator implements CrawlerBeginListener{
 		crawler.addSeed(datumGenerator.generateCoderbusy("th", 1));
 		//孟加拉
 		crawler.addSeed(datumGenerator.generateCoderbusy("bd", 1));
+		//乌克兰
+		crawler.addSeed(datumGenerator.generateCoderbusy("ua", 1));
+		//土耳其
+		crawler.addSeed(datumGenerator.generateCoderbusy("tr", 1));
+		//意大利
+		crawler.addSeed(datumGenerator.generateCoderbusy("it", 1));
+		//德国
+		crawler.addSeed(datumGenerator.generateCoderbusy("de", 1));
+		//英国
+		crawler.addSeed(datumGenerator.generateCoderbusy("gb", 1));
 	}
 
 	/**
