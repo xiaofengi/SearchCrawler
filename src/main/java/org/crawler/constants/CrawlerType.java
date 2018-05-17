@@ -10,4 +10,6 @@ public class CrawlerType {
     public static final String FACEBOOK_FRIENDS_LIST = "facebook_friends_list";
     public static final String FACEBOOK_SEARCH = "facebook_search";
 	public static final String PROXY_CODERBUSY = "proxy_coderbusy";
+    public static final String PROXY_DATA5U = "proxy_data5u";
+    public static final String PROXY_NNTIME = "proxy_nntime";
 }

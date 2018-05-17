@@ -3,7 +3,7 @@
 <mapper namespace="org.crawler.mysql.mapper.ProxyEntityMapper" >
 
   <insert id="batchInsert">
-    insert into proxy_entity (host, port, location, 
+    replace into proxy_entity (host, port, location,
       type, anonymous_type, res_time, 
       `using`, enable, create_time
       )

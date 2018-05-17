@@ -14,6 +14,8 @@ import org.crawler.processor.baidu.video.Ku6PlayProcessor;
 import org.crawler.processor.facebook.FbFriendsListProcessor;
 import org.crawler.processor.facebook.FbSearchProcessor;
 import org.crawler.processor.proxy.CoderbusyProcessor;
+import org.crawler.processor.proxy.Data5uProcessor;
+import org.crawler.processor.proxy.NntimeProcessor;
 import org.crawler.processor.youtube.YoutubeListProcessor;
 import org.crawler.processor.youtube.YoutubePlayProcessor;
 import org.springframework.beans.BeansException;
@@ -52,5 +54,7 @@ public class ProcessorManager implements ApplicationContextAware{
 		processors.put(ProcessorType.FACEBOOK_SEARCH, applicationContext.getBean(FbSearchProcessor.class));
 		processors.put(ProcessorType.FACEBOOK_FRIENDS_LIST, applicationContext.getBean(FbFriendsListProcessor.class));
 		processors.put(ProcessorType.CODDERBUSY, applicationContext.getBean(CoderbusyProcessor.class));
+		processors.put(ProcessorType.DATA5U, applicationContext.getBean(Data5uProcessor.class));
+		processors.put(ProcessorType.NNTIME, applicationContext.getBean(NntimeProcessor.class));
 	}
 }

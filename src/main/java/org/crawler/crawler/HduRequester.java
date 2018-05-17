@@ -46,6 +46,9 @@ public class HduRequester implements Requester, CrawlerBeginListener, CrawlerEnd
 			request.setHeader("referer", crawlDatum.meta("referer"));
 		}
 		switch (crawlDatum.meta(ProcessorType.PROCESSOR_TYPE)) {
+			case ProcessorType.DATA5U:
+				request.setHeader("Upgrade-Insecure-Requests", "1");
+				break;
 			case ProcessorType.BAIDU_SEARCH_RS:
 				break;
 			case ProcessorType.BAIDU_VIDEO_SEARCH:

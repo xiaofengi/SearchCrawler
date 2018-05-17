@@ -13,4 +13,6 @@ public class ProcessorType {
     public static final String FACEBOOK_SEARCH = "facebook_search";
     public static final String FACEBOOK_FRIENDS_LIST = "facebook_friends_list";
     public static final String CODDERBUSY = "coder_busy";
+    public static final String DATA5U = "data_5u";
+    public static final String NNTIME = "nntime";
 }

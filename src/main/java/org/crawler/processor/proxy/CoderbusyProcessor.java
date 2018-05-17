@@ -30,6 +30,7 @@ public class CoderbusyProcessor implements Processor{
     public void process(Page page, CrawlDatums next) {
         String country = page.meta("country");
         int pageIndex = Integer.parseInt(page.meta("pageIndex"));
+
         Elements trs = page.select("tbody tr");
         List<ProxyEntity> proxyEntityList = new ArrayList<>();
         if(!trs.isEmpty()){
@@ -50,8 +51,10 @@ public class CoderbusyProcessor implements Processor{
                 logger.info("插入" + country + "的代理ip共" + proxyEntityList.size() + "条");
             }
         }
+
+        //爬取下一页
         if(pageIndex == 1){
-            int resultNum = 0;
+            int resultNum;
             Elements numElement = page.select(".pagination li:last-child");
             if(!numElement.isEmpty()){
                 String totalNumText = numElement.first().text();

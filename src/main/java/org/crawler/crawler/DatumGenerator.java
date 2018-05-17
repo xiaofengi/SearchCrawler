@@ -10,6 +10,7 @@ import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.net.URLEncoder;
+import java.util.Date;
 
 @Component
 public class DatumGenerator {
@@ -188,4 +189,30 @@ public class DatumGenerator {
 				.meta("country", country)
 				.meta("pageIndex", String.valueOf(pageIndex));
     }
+
+	/**
+	 * 爬取无忧代理
+	 * @param url 爬取地址
+	 * @param proxyType 爬取代理类型
+	 * @param times 次数
+	 * @return
+	 */
+	public CrawlDatum generateData5u(String url, String proxyType, int times) {
+		return new CrawlDatum(url)
+				.meta(ProcessorType.PROCESSOR_TYPE, ProcessorType.DATA5U)
+				.meta("proxyType", proxyType)
+				.meta("times", String.valueOf(times))
+				.setKey(url + "-" + times);
+    }
+
+	/**
+	 * 爬取nntime
+	 * @param pageIndex 当前页面数
+	 * @return
+	 */
+	public CrawlDatum generateNntime(int pageIndex) {
+		return new CrawlDatum(String.format(DatumConstants.NNTIME_PROXY_URL, pageIndex<10 ? "0"+pageIndex:pageIndex))
+				.meta(ProcessorType.PROCESSOR_TYPE, ProcessorType.NNTIME)
+				.meta("pageIndex", String.valueOf(pageIndex));
+	}
 }

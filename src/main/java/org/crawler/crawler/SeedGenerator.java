@@ -3,11 +3,8 @@ package org.crawler.crawler;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
+
 import org.crawler.constants.CrawlerType;
 import org.crawler.constants.DatumConstants;
 import org.crawler.entity.FbFriendsListParam;
@@ -30,6 +27,12 @@ public class SeedGenerator implements CrawlerBeginListener{
 		switch (crawlerType) {
 			case CrawlerType.PROXY_CODERBUSY:
 				generateCoderbusy(crawler);
+				break;
+			case CrawlerType.PROXY_DATA5U:
+				generateData5u(crawler);
+				break;
+			case CrawlerType.PROXY_NNTIME:
+				generateNntime(crawler);
 				break;
 			case CrawlerType.BAIDU_SEARCH:
 				generateBaiduSearch(crawler);
@@ -57,35 +60,90 @@ public class SeedGenerator implements CrawlerBeginListener{
 		}
 	}
 
+	private void generateNntime(Crawler crawler) {
+		crawler.addSeed(datumGenerator.generateNntime(1));
+	}
+
+	private void generateData5u(Crawler crawler) {
+		crawler.addSeed(datumGenerator.generateData5u("http://www.data5u.com/free/gwgn/index.shtml", "国外高匿", 1));
+		crawler.addSeed(datumGenerator.generateData5u("http://www.data5u.com/free/gwpt/index.shtml", "国外普通", 1));
+	}
+
 	private void generateCoderbusy(Crawler crawler) {
+		List<String> countryList = new ArrayList<>();
 		//巴西
-		crawler.addSeed(datumGenerator.generateCoderbusy("br", 1));
+		countryList.add("br");
 		//美国
-		crawler.addSeed(datumGenerator.generateCoderbusy("us", 1));
+		countryList.add("us");
 		//印度尼西亚
-		crawler.addSeed(datumGenerator.generateCoderbusy("id", 1));
+		countryList.add("id");
 		//俄罗斯
-		crawler.addSeed(datumGenerator.generateCoderbusy("ru" ,1));
+		countryList.add("ru");
 		//法国
-		crawler.addSeed(datumGenerator.generateCoderbusy("fr", 1));
+		countryList.add("fr");
 		//印度
-		crawler.addSeed(datumGenerator.generateCoderbusy("in", 1));
+		countryList.add("in");
 		//香港
-		crawler.addSeed(datumGenerator.generateCoderbusy("hk", 1));
+		countryList.add("hk");
 		//泰国
-		crawler.addSeed(datumGenerator.generateCoderbusy("th", 1));
+		countryList.add("th");
 		//孟加拉
-		crawler.addSeed(datumGenerator.generateCoderbusy("bd", 1));
+		countryList.add("bd");
 		//乌克兰
-		crawler.addSeed(datumGenerator.generateCoderbusy("ua", 1));
+		countryList.add("ua");
 		//土耳其
-		crawler.addSeed(datumGenerator.generateCoderbusy("tr", 1));
+		countryList.add("tr");
 		//意大利
-		crawler.addSeed(datumGenerator.generateCoderbusy("it", 1));
+		countryList.add("it");
+		//哥伦比亚
+		countryList.add("co");
 		//德国
-		crawler.addSeed(datumGenerator.generateCoderbusy("de", 1));
+		countryList.add("de");
 		//英国
-		crawler.addSeed(datumGenerator.generateCoderbusy("gb", 1));
+		countryList.add("gb");
+		//阿根廷
+		countryList.add("ar");
+		//波兰
+		countryList.add("pl");
+		//伊朗
+		countryList.add("ir");
+		//加拿大
+		countryList.add("ca");
+		//厄瓜多尔
+		countryList.add("ec");
+		//捷克共和国
+		countryList.add("cs");
+		//日本
+		countryList.add("jp");
+		//巴基斯坦
+		countryList.add("pk");
+		//南非
+		countryList.add("za");
+		//柬埔寨
+		countryList.add("kh");
+		//尼泊尔
+		countryList.add("np");
+		//越南
+		countryList.add("vn");
+		//罗马尼亚
+		countryList.add("ro");
+		//伊拉克
+		countryList.add("iq");
+		//菲律宾
+		countryList.add("ph");
+		//尼日利亚
+		countryList.add("ng");
+		//台湾
+		countryList.add("tw");
+		//格鲁吉亚
+		countryList.add("ge");
+		//巴勒斯坦
+		countryList.add("bl");
+		//澳大利亚
+		countryList.add("au");
+		for(String country : countryList){
+			crawler.addSeed(datumGenerator.generateCoderbusy(country, 1));
+		}
 	}
 
 	/**
