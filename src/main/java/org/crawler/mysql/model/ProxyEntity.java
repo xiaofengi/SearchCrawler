@@ -17,23 +17,25 @@ public class ProxyEntity {
 
     private String resTime;
 
-    private Boolean using;
+    private Boolean isUsing;
 
     private Boolean enable;
 
     private Date createTime;
 
+    private Date lastUseTime;
+
     public ProxyEntity() {
     }
 
-    public ProxyEntity(String host, Integer port, String location, String type, String anonymousType, String resTime, Boolean using, Boolean enable, Date createTime) {
+    public ProxyEntity(String host, Integer port, String location, String type, String anonymousType, String resTime, Boolean isUsing, Boolean enable, Date createTime) {
         this.host = host;
         this.port = port;
         this.location = location;
         this.type = type;
         this.anonymousType = anonymousType;
         this.resTime = resTime;
-        this.using = using;
+        this.isUsing = isUsing;
         this.enable = enable;
         this.createTime = createTime;
     }
@@ -94,12 +96,12 @@ public class ProxyEntity {
         this.resTime = resTime == null ? null : resTime.trim();
     }
 
-    public Boolean getUsing() {
-        return using;
+    public Boolean getIsUsing() {
+        return isUsing;
     }
 
-    public void setUsing(Boolean using) {
-        this.using = using;
+    public void setIsUsing(Boolean isUsing) {
+        this.isUsing = isUsing;
     }
 
     public Boolean getEnable() {
@@ -116,5 +118,13 @@ public class ProxyEntity {
 
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
+    }
+
+    public Date getLastUseTime() {
+        return lastUseTime;
+    }
+
+    public void setLastUseTime(Date lastUseTime) {
+        this.lastUseTime = lastUseTime;
     }
 }

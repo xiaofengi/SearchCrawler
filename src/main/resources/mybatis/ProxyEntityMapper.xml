@@ -5,13 +5,13 @@
   <insert id="batchInsert">
     replace into proxy_entity (host, port, location,
       type, anonymous_type, res_time, 
-      `using`, enable, create_time
+      is_using, enable, create_time
       )
     values
       <foreach collection="proxyEntityList" item="item" separator=",">
         (#{item.host,jdbcType=VARCHAR}, #{item.port,jdbcType=INTEGER}, #{item.location,jdbcType=VARCHAR},
         #{item.type,jdbcType=VARCHAR}, #{item.anonymousType,jdbcType=VARCHAR}, #{item.resTime,jdbcType=VARCHAR},
-        #{item.using,jdbcType=BIT}, #{item.enable,jdbcType=BIT}, #{item.createTime,jdbcType=TIMESTAMP}
+        #{item.isUsing,jdbcType=BIT}, #{item.enable,jdbcType=BIT}, #{item.createTime,jdbcType=TIMESTAMP}
         )
       </foreach>
   </insert>
