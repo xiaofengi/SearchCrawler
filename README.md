@@ -3,4 +3,4 @@
 
 1.中小网站：百度、bing、google
 
-2.大型网站：twitter、youtube、LinkedIn、网易
+2.大型网站：twitter、youtube、LinkedIn
